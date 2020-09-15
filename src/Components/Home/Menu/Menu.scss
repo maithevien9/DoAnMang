@@ -1,0 +1,46 @@
+.wrapper {
+  height: 825px;
+  width: 400px;
+  background-color: #a4d3ee;
+  margin-right: 10px;
+}
+.btnAdd {
+  height: 90px;
+  width: 270px;
+  border-radius: 35px;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.wrapperBtnAdd {
+  padding-top: 30px;
+  padding-left: 40px;
+}
+.imageAdd {
+  height: 40px;
+  width: 40px;
+  padding-left: 40px;
+}
+.textAdd {
+  font-size: 35px;
+  padding-right: 50px;
+}
+.textMenu {
+  font-size: 22px;
+}
+.btnMenu {
+  height: 70px;
+  width: 360px;
+  border-bottom-right-radius: 35px;
+  border-top-right-radius: 35px;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 10px;
+}
+.wrapperBtnMenu {
+  padding-top: 30px;
+  padding-left: 5px;
+}
