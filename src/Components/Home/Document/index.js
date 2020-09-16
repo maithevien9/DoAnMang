@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./Document.scss";
 import { Scrollbars } from "react-custom-scrollbars";
-import Folder from "../../../public/image/folder.png";
+import Folder from "../../../public/image/folder2.png";
 
 Document.propTypes = {};
 
