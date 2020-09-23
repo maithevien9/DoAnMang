@@ -1,5 +1,5 @@
 const LoginAPI = (user, password) => {
-  var url = "http://192.168.1.12:8000/Login/";
+  var url = "http://localhost:8000/Login/";
   return fetch(url, {
     method: "POST",
     headers: {

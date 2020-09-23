@@ -38,7 +38,7 @@ function Authenication(props) {
         handleLogin();
       }
     } else {
-      alert("Login fail");
+      // alert("Login fail");
     }
   };
   function handleTextUser(e) {

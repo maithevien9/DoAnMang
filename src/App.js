@@ -5,7 +5,7 @@ import Authenication from "./Components/Authentication/index.jsx";
 import Home from "./Components/Home/index.jsx";
 
 function App() {
-  const [valueLogin, setValueLogin] = useState(true);
+  const [valueLogin, setValueLogin] = useState(false);
   function handleLogin() {
     setValueLogin(true);
   }
