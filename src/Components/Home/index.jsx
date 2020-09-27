@@ -4,12 +4,23 @@ import Header from "./Header/index";
 import Menu from "./Menu/index";
 import Document from "./Document/index.js";
 
-Home.propTypes = {};
+Home.propTypes = {
+  handleLogOut: PropTypes.func,
+};
+Home.Authenication = {
+  handleLogOut: null,
+};
 
 function Home(props) {
+  const { handleLogOut } = props;
+  function handleLogOut2() {
+    if (handleLogOut) {
+      handleLogOut();
+    }
+  }
   return (
     <div style={styles.wrapper}>
-      <Header />
+      <Header handleLogOut2={handleLogOut2} />
       <div className="wrapperMenuDocu" style={{ display: "flex" }}>
         <Menu />
         <Document />

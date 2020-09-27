@@ -1,146 +1,175 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Document.scss";
 import { Scrollbars } from "react-custom-scrollbars";
 import Folder from "../../../public/image/folder2.png";
+import GetFolderFromRoom from "../../../RestAPI/Folder/GetFolderFromRoom";
+import { connect } from "react-redux";
 
 Document.propTypes = {};
 
 function Document(props) {
   const [DataDocument, setDataDocument] = useState([]);
+  const [dataRoom, setDataRoom] = useState([]);
+  var DataFolderRoom = [];
+
+  useEffect(() => {
+    // setDataRoom(["2", "3"]);
+    // console.log("??");
+    // console.log(dataRoom);
+    // GetFolderFromRoom(101)
+    //   .then((json) => {
+    //     DataFolderRoom = JSON.parse(JSON.stringify(json));
+    //     console.log(DataFolderRoom);
+    //     if (DataFolderRoom.dataString === "THANH_CONG") {
+    //       // if (handleLogin) {
+    //       //   handleLogin();
+    //       //   SaveDataLogin(DataLoginUser);
+    //       // }
+    //     } else {
+    //       alert("NetWork fail");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error + "fail");
+    //   });
+  }, []);
+
+  const HandleGetFolderFromRoom = (props) => {
+    GetFolderFromRoom(101)
+      .then((json) => {
+        DataFolderRoom = JSON.parse(JSON.stringify(json));
+        console.log(DataFolderRoom.data);
+
+        props.dispatch({
+          type: "SetDataFolder",
+          data: DataFolderRoom.data,
+        });
+
+        if (DataFolderRoom.dataString === "THANH_CONG") {
+          // if (handleLogin) {
+          //   handleLogin();
+          //   SaveDataLogin(DataLoginUser);
+          // }
+        } else {
+          alert("NetWork fail");
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+
   return (
     <Scrollbars style={styles.wrapperDocument}>
+      <button onClick={HandleGetFolderFromRoom} />
       <div className="wrapperRooms">
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 101</p>
+        <div className="wrapperHeader">
+          <div className="wrapperNameFolder">
+            <p>Name</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 102</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>{dataRoom.length}</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 103</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 104</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
 
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 201</p>
+        {props.DataFolderRoom.map((e) => (
+          <div className="wrapperFolder">
+            <div className="wrapperNameFolder">
+              <img className="wrapperImage" src={Folder} alt="user" />
+              <p>Folder</p>
+            </div>
+            <div className="wrapperdiv"></div>
+            <div className="wrapperOwner">
+              <p>Owner</p>
+            </div>
+            <div className="wrapperTime">
+              <p> Last Modified</p>
+            </div>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 202</p>
+        ))}
+        {/* <div className="wrapperFolder">
+          <div className="wrapperNameFolder">
+            <img className="wrapperImage" src={Folder} alt="user" />
+            <p>Folder</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 203</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 204</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
+          </div>
+        </div> */}
+
+        <div className="wrapperHeaderFile"></div>
+
+        <div className="wrapperFile">
+          <div className="wrapperNameFolder">
+            <p>File</p>
+          </div>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
+          </div>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
 
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 301</p>
+        <div className="wrapperFile">
+          <div className="wrapperNameFolder">
+            <p>File</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 302</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 303</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 304</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
 
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 401</p>
+        <div className="wrapperFile">
+          <div className="wrapperNameFolder">
+            <p>File</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 402</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 403</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 404</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
 
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 501</p>
+        <div className="wrapperFile">
+          <div className="wrapperNameFolder">
+            <p>File</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 502</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 503</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 504</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
 
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 601</p>
+        <div className="wrapperFile">
+          <div className="wrapperNameFolder">
+            <p>File</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 602</p>
+          <div className="wrapperdiv"></div>
+          <div className="wrapperOwner">
+            <p>Owner</p>
           </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 603</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 604</p>
-          </div>
-        </div>
-
-        <div className="wrapper4Room" style={{ display: "flex" }}>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 701</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 702</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 703</p>
-          </div>
-          <div className="wrapperRoom">
-            <img className="imageRoom" src={Folder} alt="user" />
-            <p className="textRooms">Room 704</p>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
         </div>
       </div>
@@ -150,8 +179,14 @@ function Document(props) {
 var styles = {
   wrapperDocument: {
     width: 1800,
-    height: 825,
+    height: 950,
     backgroundColor: "#E8E8E8",
   },
 };
-export default Document;
+function mapStateToProps(state) {
+  return {
+    DataUser: state.DataUser,
+    DataFolderRoom: state.DataFolderRoom,
+  };
+}
+export default connect(mapStateToProps)(Document);

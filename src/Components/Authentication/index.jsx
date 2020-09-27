@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./Authentication.scss";
 import br from "../../public/image/br.PNG";
 import LoginAPI from "../../RestAPI/Login";
+import SaveDataLogin from "../../LocalStorage/SaveDataLogin.js";
 Authenication.propTypes = {
   handleLogin: PropTypes.func,
 };
@@ -13,33 +14,28 @@ function Authenication(props) {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const { handleLogin } = props;
-  const [dataLogin, setDatalogin] = useState({
-    dataString: "KHONG_THANH_CONG",
-    data: [],
-    token: "",
-  });
+  const [dataLogin, setDatalogin] = useState([]);
 
   // useEffect(() => {});
-  const HandleLogin = async () => {
+  const HandleLoginMain = async () => {
     // alert(user + " " + password);
-
+    var DataLoginUser = [];
     LoginAPI(user, password)
       .then((json) => {
+        DataLoginUser = JSON.parse(JSON.stringify(json));
         setDatalogin(json);
-        console.log(dataLogin);
-        console.log(json);
+        if (DataLoginUser.dataString === "THANH_CONG") {
+          if (handleLogin) {
+            handleLogin();
+            SaveDataLogin(DataLoginUser);
+          }
+        } else {
+          alert("Login fail");
+        }
       })
       .catch((error) => {
         console.error(error + "fail");
       });
-
-    if (dataLogin.dataString === "THANH_CONG") {
-      if (handleLogin) {
-        handleLogin();
-      }
-    } else {
-      // alert("Login fail");
-    }
   };
   function handleTextUser(e) {
     setUser(e.target.value);
@@ -82,7 +78,7 @@ function Authenication(props) {
           <button
             className="btnLogin"
             style={styles.btnLogin}
-            onClick={HandleLogin}
+            onClick={HandleLoginMain}
           >
             Login
           </button>

@@ -1,21 +1,17 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 import Authenication from "./Components/Authentication/index.jsx";
 import Home from "./Components/Home/index.jsx";
+import GetDataLogin from "./LocalStorage/GetDataLogin";
+import store from "./Redux/Redux";
+import { Provider } from "react-redux";
+import Ap from "./Ap";
 
 function App() {
-  const [valueLogin, setValueLogin] = useState(false);
-  function handleLogin() {
-    setValueLogin(true);
-  }
   return (
-    <div>
-      {/* <Home /> */}
-      {valueLogin ? <Home /> : <Authenication handleLogin={handleLogin} />}
-      {/* <Home /> */}
-      {/* <Authenication /> */}
-    </div>
+    <Provider store={store}>
+      <Ap />
+    </Provider>
   );
 }
 

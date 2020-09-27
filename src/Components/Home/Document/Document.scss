@@ -1,5 +1,5 @@
 .wrapperDocument {
-  height: 825px;
+  height: 950px;
   width: 1407px;
   background-color: white;
 }
@@ -23,9 +23,72 @@
 }
 .textRooms {
   font-size: 25px;
+  font-family: "Cochin";
   margin-right: 60px;
 }
 .imageRoom {
   height: 50px;
   width: 50px;
+}
+.wrapperHeader {
+  font-size: 25px;
+  font-family: "Cochin";
+  height: 50px;
+  width: 1580px;
+  border-bottom: 3px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // background-color: pink;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.wrapperFolder {
+  height: 40px;
+  width: 1580px;
+  background-color: white;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+  font-family: "Cochin";
+  border: 2px solid black;
+  border-radius: 15px;
+}
+.wrapperNameFolder {
+  display: flex;
+  width: 400px;
+  align-items: center;
+}
+.wrapperOwner {
+  padding-left: 100px;
+  width: 300px;
+}
+.wrapperTime {
+  padding-left: 200px;
+  width: 300px;
+}
+.wrapperdiv {
+  width: 100px;
+}
+.wrapperImage {
+  height: 30px;
+  width: 30px;
+  margin-right: 15px;
+}
+.wrapperFile {
+  font-size: 18px;
+  font-family: "Cochin";
+  height: 35px;
+  width: 1580px;
+  border-bottom: 2px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // background-color: pink;
+  margin-bottom: 10px;
+}
+.wrapperHeaderFile {
+  height: 30px;
 }

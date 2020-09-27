@@ -9,10 +9,19 @@ import User2 from "../../../public/image/userr.png";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import SaveDataLogin from "../../../LocalStorage/SaveDataLogin.js";
+
+Header.propTypes = {
+  handleLogOut2: PropTypes.func,
+};
+Header.Authenication = {
+  handleLogOut2: null,
+};
 
 function Header(props) {
   const [valueUser, setValueUser] = useState(true);
   const [height, setHeight] = useState(40);
+  const { handleLogOut2 } = props;
   const [width, setWidth] = useState(40);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -30,6 +39,14 @@ function Header(props) {
   };
   const handleEvent2 = () => {
     setValueUser(true);
+  };
+  const handleLogOutHeader = () => {
+    if (handleLogOut2) {
+      handleLogOut2();
+      SaveDataLogin({
+        dataString: "KHONG_THANH_CONG",
+      });
+    }
   };
 
   return (
@@ -77,7 +94,9 @@ function Header(props) {
           onClose={handleClose}
         >
           <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem onClick={handleClose}>My Document</MenuItem>
+          <MenuItem onClick={handleClose}>Share With Me</MenuItem>
+          <MenuItem onClick={handleLogOutHeader}>Log Out</MenuItem>
         </Menu>
       </div>
     </div>
