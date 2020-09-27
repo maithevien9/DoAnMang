@@ -11,6 +11,7 @@ Document.propTypes = {};
 function Document(props) {
   const [DataDocument, setDataDocument] = useState([]);
   const [dataRoom, setDataRoom] = useState([]);
+  var dataArrayFolder = JSON.parse(JSON.stringify(props.DataFolderRoom));
   var DataFolderRoom = [];
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function Document(props) {
     //   });
   }, []);
 
-  const HandleGetFolderFromRoom = (props) => {
+  const HandleGetFolderFromRoom = () => {
     GetFolderFromRoom(101)
       .then((json) => {
         DataFolderRoom = JSON.parse(JSON.stringify(json));
@@ -45,7 +46,7 @@ function Document(props) {
           type: "SetDataFolder",
           data: DataFolderRoom.data,
         });
-
+        console.log(DataFolderRoom.data);
         if (DataFolderRoom.dataString === "THANH_CONG") {
           // if (handleLogin) {
           //   handleLogin();
@@ -70,7 +71,7 @@ function Document(props) {
           </div>
           <div className="wrapperdiv"></div>
           <div className="wrapperOwner">
-            <p>{dataRoom.length}</p>
+            <p>By ID</p>
           </div>
           <div className="wrapperTime">
             <p> Last Modified</p>
@@ -81,14 +82,14 @@ function Document(props) {
           <div className="wrapperFolder">
             <div className="wrapperNameFolder">
               <img className="wrapperImage" src={Folder} alt="user" />
-              <p>Folder</p>
+              <p>{e.Name}</p>
             </div>
             <div className="wrapperdiv"></div>
             <div className="wrapperOwner">
-              <p>Owner</p>
+              <p>{e.IDuser}</p>
             </div>
             <div className="wrapperTime">
-              <p> Last Modified</p>
+              <p>{e.SendTime}</p>
             </div>
           </div>
         ))}
