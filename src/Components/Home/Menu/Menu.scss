@@ -1,52 +1,39 @@
-.wrapper {
-  height: 825px;
+.App {
+  height: 950px;
   width: 400px;
+  display: "block";
+  // background-image: url("../../../public/image/folder2.png");
   background-color: #a4d3ee;
-  margin-right: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 24px;
+  overflow-y: scroll;
+  border-radius: 20px;
 }
-.btnAdd {
-  height: 90px;
-  width: 270px;
-  border-radius: 35px;
-  background-color: white;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.wrapperBtnAdd {
-  padding-top: 30px;
-  padding-left: 40px;
-}
-.imageAdd {
-  height: 40px;
-  width: 40px;
-  padding-left: 40px;
-}
-.textAdd {
-  font-size: 35px;
+h1 {
   font-family: "Cochin";
-  padding-right: 50px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 5px;
+  margin-top: 25px;
+  color: mix(rgb(74, 153, 199), #085bc7, 85%);
+  text-shadow: 20px white;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.247);
+  border-bottom-width: 2px;
 }
-.textMenu {
-  font-size: 25px;
-  font-family: "Cochin";
-  padding-left: 50px;
+span:hover {
+  font-weight: bold;
 }
-.btnMenu {
-  height: 70px;
-  width: 350px;
-  border-bottom-right-radius: 35px;
-  border-top-right-radius: 35px;
-  background-color: white;
-  display: flex;
-  // justify-content: space-around;
-  align-items: center;
-  margin-right: 10px;
+::-webkit-scrollbar {
+  width: 12px;
+
+  border-radius: 5px;
 }
-.imageRoom {
-  padding-left: 50px;
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(129, 129, 129, 0.411);
 }
-.wrapperBtnMenu {
-  padding-top: 15px;
-  padding-left: 5px;
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(129, 129, 129, 0.692);
 }

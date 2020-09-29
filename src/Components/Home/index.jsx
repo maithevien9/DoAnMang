@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "./Header/index";
-import Menu from "./Menu/index";
+import TreeView from "./Menu/index";
 import Document from "./Document/index.js";
 
 Home.propTypes = {
@@ -22,7 +22,7 @@ function Home(props) {
     <div style={styles.wrapper}>
       <Header handleLogOut2={handleLogOut2} />
       <div className="wrapperMenuDocu" style={{ display: "flex" }}>
-        <Menu />
+        <TreeView />
         <Document />
       </div>
     </div>
