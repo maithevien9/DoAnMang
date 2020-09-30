@@ -18,6 +18,7 @@ var dataFromFolder = [];
 var FileFromFolder = [];
 var DataBack = [{ id: "temp" }];
 var IDRoom = 101;
+var IDFolder = 1999999999;
 // console.log(dataUser);
 
 const dataUserReducer = (state = dataUser, action) => {
@@ -57,6 +58,11 @@ const IDRoomReducer = (state = IDRoom, action) => {
   if (action.type === "SetIDRoom") return action.ID;
   return state;
 };
+
+const IDFolderReducer = (state = IDFolder, action) => {
+  if (action.type === "SetIDFolder") return action.ID;
+  return state;
+};
 const reducer = combineReducers({
   DataUser: dataUserReducer,
   DataFolderRoom: dataFolderFromRoomReducer,
@@ -64,6 +70,7 @@ const reducer = combineReducers({
   FileFromFolder: FileFromFolderReducer,
   DataBack: DataBackReducer,
   IDRoom: IDRoomReducer,
+  IDFolder: IDFolderReducer,
 });
 const store = createStore(reducer);
 

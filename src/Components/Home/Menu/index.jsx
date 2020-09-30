@@ -5,6 +5,10 @@ import File2 from "../../../public/image/folder2.png";
 import "./Menu.scss";
 import { connect } from "react-redux";
 import GetFolderFromRoom from "../../../RestAPI/Folder/GetFolderFromRoom.js";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Upload from "../../../RestAPI/Document/Upload.js";
+import GetFolderAndFileFromFolder from "../../../RestAPI/Folder/GetFolderAndFileFromFolder.js";
 const StyledTree = styled.div`
   line-height: 1.5;
 `;
@@ -76,6 +80,16 @@ Tree.File = File;
 Tree.Folder = Folder2;
 
 function TreeView(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [fileUp, setfileUp] = React.useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+  };
   const HandleClickRoom = (value) => {
     props.dispatch({
       type: "Reset",
@@ -102,8 +116,89 @@ function TreeView(props) {
         console.error(error + "fail");
       });
   };
+  const HandleAdd = () => {
+    setAnchorEl(true);
+  };
+  const HandleAdd2 = () => {
+    setAnchorEl2(true);
+  };
+  const HandleAddFile = () => {
+    if (props.IDFolder !== 1999999999 && fileUp != null) {
+      var data = new FormData();
+      data.append("photo", fileUp);
+      data.append("Token", props.DataUser.token);
+      data.append("IDFolder", props.IDFolder);
+      Upload(data)
+        .then((json) => {
+          var dataCheck = JSON.parse(JSON.stringify(json));
+          console.log(dataCheck.success);
+          if (dataCheck.success === "THANH_CONG") {
+            alert("THANH_CONG");
+            GetFolderAndFileFromFolder(props.IDFolder)
+              .then((json) => {
+                var DataFileFolder = JSON.parse(JSON.stringify(json));
+                console.log(DataFileFolder.data);
+                console.log(DataFileFolder.file);
+
+                props.dispatch({
+                  type: "SetDataFolder",
+                  data: DataFileFolder.data,
+                });
+
+                props.dispatch({
+                  type: "SetDataFile",
+                  dataFile: DataFileFolder.file,
+                });
+              })
+              .catch((error) => {
+                console.error(error + "fail");
+              });
+          }
+        })
+        .catch((error) => {
+          console.error(error + "fail");
+        });
+    }
+  };
+  const HandleUpload = (e) => {
+    var fileUplooad = e.target.files;
+    setfileUp(fileUplooad[0]);
+  };
   return (
     <div className="App">
+      <div className="wrapperAdd" onClick={() => HandleAdd()}>
+        ADD
+      </div>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem>Add Folder</MenuItem>
+        <MenuItem onClick={() => HandleAdd2()}>File Upload File</MenuItem>
+        {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
+      </Menu>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl2}
+        keepMounted
+        open={Boolean(anchorEl2)}
+        onClose={handleClose2}
+      >
+        <MenuItem>
+          <input
+            style={{ marginRight: 10 }}
+            type="file"
+            onChange={(e) => {
+              HandleUpload(e);
+            }}
+          />
+        </MenuItem>
+        <MenuItem onClick={() => HandleAddFile()}>Send</MenuItem>
+        {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
+      </Menu>
       <h1>ROOMS</h1>
       <Tree>
         <Tree.Folder name="Floor 1">
@@ -191,6 +286,8 @@ var styles = {
 function mapStateToProps(state) {
   return {
     IDRoom: state.IDRoom,
+    IDFolder: state.IDFolder,
+    DataUser: state.DataUser,
   };
 }
 export default connect(mapStateToProps)(TreeView);

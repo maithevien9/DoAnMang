@@ -5,8 +5,10 @@ import { Scrollbars } from "react-custom-scrollbars";
 import Folder from "../../../public/image/folder2.png";
 import GetFolderFromRoom from "../../../RestAPI/Folder/GetFolderFromRoom";
 import GetFolderAndFileFromFolder from "../../../RestAPI/Folder/GetFolderAndFileFromFolder";
-
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
+import HandleDownLoadFile from "./Download";
 
 Document.propTypes = {};
 
@@ -19,6 +21,12 @@ function Document(props) {
   var DataFolderRoom = [];
   var tempBack = 0;
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+    setAnchorEl2(null);
+  };
   useEffect(() => {
     // setDataRoom(["2", "3"]);
     // console.log("??");
@@ -71,6 +79,10 @@ function Document(props) {
     props.dispatch({
       type: "SetBackAdd",
       data: value,
+    });
+    props.dispatch({
+      type: "SetIDFolder",
+      ID: value,
     });
 
     GetFolderAndFileFromFolder(value)
@@ -130,8 +142,15 @@ function Document(props) {
       }
     }
   };
-  const handleRightClickFolder = () => {
-    alert("Right Click");
+  const handleRightClickFolder = (event) => {
+    // alert("Right Click");
+    setAnchorEl(true);
+  };
+  const handleRightClickFile = () => {
+    setAnchorEl2(true);
+  };
+  const HandleDownload = (value) => {
+    alert(value);
   };
   //
   return (
@@ -142,7 +161,7 @@ function Document(props) {
         <div className="wrapperRooms">
           <div className="wrapperHeader">
             <div className="wrapperNameFolder">
-              <p>Name + {props.DataBack.length}</p>
+              <p>Name</p>
             </div>
             <div className="wrapperdiv"></div>
             <div className="wrapperOwner">
@@ -164,6 +183,20 @@ function Document(props) {
                 <img className="wrapperImage" src={Folder} alt="user" />
                 <p>{e.Name}</p>
               </div>
+              <div className="wrapperMenu">
+                <Menu
+                  // id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>Change Name</MenuItem>
+                  <MenuItem>Change PassWord</MenuItem>
+                  <MenuItem>Share</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                </Menu>
+              </div>
               <div className="wrapperdiv"></div>
               <div className="wrapperOwner">
                 <p>{e.IDuser}</p>
@@ -177,11 +210,29 @@ function Document(props) {
           <div className="wrapperHeaderFile"></div>
 
           {props.FileFromFolder.map((e) => (
-            <div className="wrapperFile" key={e.ID}>
+            <div
+              className="wrapperFile"
+              key={e.ID}
+              onContextMenu={() => handleRightClickFile()}
+              onClick={() => {
+                HandleDownLoadFile(e.ID);
+              }}
+            >
               <div className="wrapperNameFolder">
                 <p>{e.name}</p>
               </div>
               <div className="wrapperdiv"></div>
+              <Menu
+                // id="simple-menu"
+                anchorEl={anchorEl2}
+                keepMounted
+                open={Boolean(anchorEl2)}
+                onClose={handleClose}
+              >
+                <MenuItem>Change Name</MenuItem>
+                <MenuItem>Share</MenuItem>
+                <MenuItem>Delete</MenuItem>
+              </Menu>
               <div className="wrapperOwner">
                 <p>{e.IDuser}</p>
               </div>

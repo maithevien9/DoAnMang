@@ -37,3 +37,16 @@ span:hover {
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(129, 129, 129, 0.692);
 }
+.wrapperAdd {
+  margin-top: 40px;
+  margin-left: 18px;
+  height: 60px;
+  width: 280px;
+  justify-content: center;
+
+  border-style: solid;
+  border-width: medium;
+  padding-top: 17px;
+  font-size: 30px;
+  border-radius: 25px;
+}
