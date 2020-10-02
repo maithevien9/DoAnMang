@@ -1,13 +1,44 @@
 .textInput {
     display: inline-block;
-    padding-left: 130px;
 }
 .wrapper {
-    justify-content: space-around;
     align-items: center;
+    justify-content: space-around;
 }
-.imageSearch {
-    position: absolute;
-    left: 1350px;
-    top: 55px;
+.wrapper {
+    background-color: #a4d3ee;
+}
+.textInput {
+    width: 100%;
+    font-size: 16px;
+    padding-left: 40px;
+    background-color: white;
+    background-image: url("../../../public/image/search.png");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+}
+
+.textInput:focus {
+    border-color: rgb(250, 250, 250);
+    box-shadow: 0 0 8px 0 rgb(17, 50, 116);
+}
+.btnUser {
+    margin: 0;
+    width: 80px;
+}
+.btnMore {
+    width: 80px;
+}
+.home {
+    width: 100px;
+}
+.search {
+    margin-left: 20%;
+}
+.btn {
+    width: 160px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 10%;
 }

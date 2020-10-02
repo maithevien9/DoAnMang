@@ -134,9 +134,53 @@ function TreeView(props) {
           console.log(dataCheck.success);
           if (dataCheck.success === "THANH_CONG") {
             alert("THANH_CONG");
+            console.log(fileUp.name);
+            console.log(props.DataUser.data[0].ID);
+            // let ts = Date.now();
+
+            // let date_ob = new Date(ts);
+            // let date = date_ob.getDate();
+            // let month = date_ob.getMonth() + 1;
+            // let year = date_ob.getFullYear();
+
+            // var hour = date_ob.getHours();
+            // var min = date_ob.getMinutes();
+            // var sec = date_ob.getSeconds();
+
+            // console.log(
+            //   year +
+            //     "-" +
+            //     month +
+            //     "-" +
+            //     date +
+            //     " " +
+            //     hour +
+            //     ":" +
+            //     min +
+            //     ":" +
+            //     sec
+            // );
+            // var time =
+            //   year +
+            //   "-" +
+            //   month +
+            //   "-" +
+            //   date +
+            //   " " +
+            //   hour +
+            //   ":" +
+            //   min +
+            //   ":" +
+            //   sec;
+            // props.dispatch({
+            //   type: "AddFile",
+            //   Name: fileUp.name,
+            //   ID: props.DataUser.data[0].ID,
+            //   SendTime: time,
+            // });
             GetFolderAndFileFromFolder(props.IDFolder)
               .then((json) => {
-                var DataFileFolder = JSON.parse(JSON.stringify(json));
+                var DataFileFolder = json;
                 console.log(DataFileFolder.data);
                 console.log(DataFileFolder.file);
 
@@ -144,7 +188,6 @@ function TreeView(props) {
                   type: "SetDataFolder",
                   data: DataFileFolder.data,
                 });
-
                 props.dispatch({
                   type: "SetDataFile",
                   dataFile: DataFileFolder.file,

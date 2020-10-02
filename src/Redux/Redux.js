@@ -29,6 +29,14 @@ const dataFromFolderReducer = (state = dataFromFolder, action) => {
   return state;
 };
 const FileFromFolderReducer = (state = FileFromFolder, action) => {
+  if (action.type === "AddFile")
+    return [
+      {
+        name: action.Name,
+        IDuser: action.ID,
+        SendTime: action.SendTime,
+      },
+    ].concat(state);
   if (action.type === "SetDataFile") return action.dataFile;
   return state;
 };

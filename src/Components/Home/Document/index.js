@@ -219,7 +219,7 @@ function Document(props) {
               }}
             >
               <div className="wrapperNameFolder">
-                <p>{e.name}</p>
+                <p>{e.Name}</p>
               </div>
               <div className="wrapperdiv"></div>
               <Menu
