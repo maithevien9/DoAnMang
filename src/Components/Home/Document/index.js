@@ -9,6 +9,14 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import HandleDownLoadFile from "./Download";
+import Modal from "react-modal";
+import CheckPassWork from "./CheckPassWork/index.jsx";
+import SharedFolder from "./SharedFolder/index.jsx";
+import ChangName from "../../../RestAPI/Folder/ChangeName";
+import ChangePassWord from "../../../RestAPI/Folder/ChangePassWord";
+import DeleteFolder from "../../../RestAPI/Folder/DeleteFolder";
+import DeleteDoc from "../../../RestAPI/Document/DeleteDoc";
+import SharedDocument from "./SharedDocument/index.jsx";
 
 Document.propTypes = {};
 
@@ -18,14 +26,29 @@ function Document(props) {
   var dataArrayFolder = JSON.parse(JSON.stringify(props.DataFolderRoom));
   const [valueDocument, setValueDocument] = useState(true);
   const [tempValue, setTempValue] = useState("");
+  const [valueName, setvalueName] = useState("");
+  const [valuePassWord, setValuePassWord] = useState("");
+  const [CheckChangeName, setCheckChangeName] = useState(true);
+  const [CheckChangePass, setCheckChangePass] = useState(true);
+  const [CheckDelete, setCheckDelete] = useState(true);
+  const [CheckShare, setCheckShare] = useState(true);
+  const [IDFolderValue, setIDFolderValue] = useState(0);
+  const [IDDocValue, setIDDocValue] = useState(0);
+
   var DataFolderRoom = [];
   var tempBack = 0;
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen2, setModalIsOpen2] = useState(false);
+  const [modalIsOpen3, setModalIsOpen3] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [anchorEl3, setAnchorEl3] = React.useState(null);
+  const [anchorEl4, setAnchorEl4] = React.useState(null);
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorEl2(null);
+    setAnchorEl3(null);
+    setAnchorEl4(null);
   };
   useEffect(() => {
     // setDataRoom(["2", "3"]);
@@ -51,6 +74,12 @@ function Document(props) {
 
   const HandleGetFolderFromRoom = () => {
     props.dispatch({
+      type: "ResetLevel",
+    });
+    props.dispatch({
+      type: "ResetIDFolder",
+    });
+    props.dispatch({
       type: "Reset",
     });
     console.log("Reset");
@@ -71,39 +100,56 @@ function Document(props) {
         console.error(error + "fail");
       });
   };
-  const handleClickFolder = (value) => {
-    setValueDocument(true);
-
-    setTempValue(value);
-
-    props.dispatch({
-      type: "SetBackAdd",
-      data: value,
-    });
-    props.dispatch({
-      type: "SetIDFolder",
-      ID: value,
-    });
-
-    GetFolderAndFileFromFolder(value)
-      .then((json) => {
-        var DataFileFolder = JSON.parse(JSON.stringify(json));
-        console.log(DataFileFolder.data);
-        console.log(DataFileFolder.file);
-
-        props.dispatch({
-          type: "SetDataFolder",
-          data: DataFileFolder.data,
-        });
-
-        props.dispatch({
-          type: "SetDataFile",
-          dataFile: DataFileFolder.file,
-        });
-      })
-      .catch((error) => {
-        console.error(error + "fail");
+  const handleClickFolder = (value, isPassWord, level) => {
+    if (isPassWord === 1) {
+      props.dispatch({
+        type: "SetBackAdd",
+        data: value,
       });
+      props.dispatch({
+        type: "SetIDFolder",
+        ID: value,
+      });
+      props.dispatch({
+        type: "setLevel",
+        data: level,
+      });
+      setModalIsOpen(true);
+    }
+    if (isPassWord === 0) {
+      props.dispatch({
+        type: "SetBackAdd",
+        data: value,
+      });
+      props.dispatch({
+        type: "SetIDFolder",
+        ID: value,
+      });
+      props.dispatch({
+        type: "setLevel",
+        data: level,
+      });
+      GetFolderAndFileFromFolder(value)
+        .then((json) => {
+          var DataFileFolder = JSON.parse(JSON.stringify(json));
+          console.log(DataFileFolder.data);
+          console.log(DataFileFolder.file);
+
+          props.dispatch({
+            type: "SetDataFolder",
+            data: DataFileFolder.data,
+          });
+
+          props.dispatch({
+            type: "SetDataFile",
+            dataFile: DataFileFolder.file,
+          });
+        })
+        .catch((error) => {
+          console.error(error + "fail");
+        });
+    }
+
     // props.dispatch({
     //     type: "SetDataFolder",
     //     data: DataFolderRoom.data,
@@ -142,15 +188,160 @@ function Document(props) {
       }
     }
   };
-  const handleRightClickFolder = (event) => {
-    // alert("Right Click");
-    setAnchorEl(true);
+  const handleRightClickFolder = (value, IDFolder) => {
+    setIDFolderValue(IDFolder);
+    if (value === props.DataUser.data[0].ID) {
+      setAnchorEl(true);
+    }
   };
-  const handleRightClickFile = () => {
-    setAnchorEl2(true);
+  const handleRightClickFile = (value, value2) => {
+    setIDDocValue(value2);
+    if (value === props.DataUser.data[0].ID) {
+      setAnchorEl2(true);
+    }
   };
   const HandleDownload = (value) => {
     alert(value);
+  };
+  const HandleChangeName = (value) => {
+    // alert(value);
+    setAnchorEl3(true);
+    setAnchorEl(null);
+  };
+  const HandleChangePassWord = (value) => {
+    // alert(value);
+    setAnchorEl3(true);
+    setAnchorEl(null);
+  };
+  function handleTextNameFolder(e) {
+    setvalueName(e.target.value);
+  }
+  function handleTextPassWord(e) {
+    setValuePassWord(e.target.value);
+  }
+  const HandleChangeNameSend = (IDfolder) => {
+    // alert(IDFolderValue);
+    console.log(IDFolderValue + "/" + valueName + "/" + props.DataUser.token);
+    ChangName(IDFolderValue, valueName, props.DataUser.token)
+      .then((json) => {
+        // setDataCheck(json);
+        // console.log(dataCheck);
+        var dataCheck = JSON.parse(JSON.stringify(json));
+        console.log(dataCheck.dataString);
+        if (dataCheck.dataString === "THANH_CONG") {
+          GetFolderAndFileFromFolder(props.IDFolder)
+            .then((json) => {
+              var DataFileFolder = JSON.parse(JSON.stringify(json));
+              console.log(DataFileFolder.data);
+              console.log(DataFileFolder.file);
+
+              props.dispatch({
+                type: "SetDataFolder",
+                data: DataFileFolder.data,
+              });
+
+              props.dispatch({
+                type: "SetDataFile",
+                dataFile: DataFileFolder.file,
+              });
+            })
+            .catch((error) => {
+              console.error(error + "fail");
+            });
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+  const handleCloseCheckPass = () => {
+    setModalIsOpen(false);
+  };
+  const handleCloseSharedFolder = () => {
+    setModalIsOpen2(false);
+  };
+  const handleCloseSharedDocument = () => {
+    setModalIsOpen3(false);
+  };
+  const HandleSendChangPass = () => {
+    alert(valuePassWord);
+
+    ChangePassWord(IDFolderValue, valuePassWord, props.DataUser.token)
+      .then((json) => {
+        var dataCheck = JSON.parse(JSON.stringify(json));
+        console.log(dataCheck.dataString);
+        if (dataCheck.dataString === "THANH_CONG") {
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+  const handleClickChangPass = () => {
+    setAnchorEl4(true);
+    setAnchorEl(null);
+  };
+  const handleDeletefolder = () => {
+    DeleteFolder(IDFolderValue, props.DataUser.token)
+      .then((json) => {
+        var dataCheck = JSON.parse(JSON.stringify(json));
+        console.log(dataCheck.dataString);
+        if (dataCheck.dataString === "THANH_CONG") {
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+  const HandleDeleteDoc = (value) => {
+    console.log(IDDocValue);
+    DeleteDoc(IDDocValue, props.DataUser.token)
+      .then((json) => {
+        var dataCheck = JSON.parse(JSON.stringify(json));
+        console.log(dataCheck.dataString);
+        if (dataCheck.dataString === "THANH_CONG") {
+          GetFolderAndFileFromFolder(props.IDFolder)
+            .then((json) => {
+              var DataFileFolder = JSON.parse(JSON.stringify(json));
+              console.log(DataFileFolder.data);
+              console.log(DataFileFolder.file);
+
+              props.dispatch({
+                type: "SetDataFolder",
+                data: DataFileFolder.data,
+              });
+
+              props.dispatch({
+                type: "SetDataFile",
+                dataFile: DataFileFolder.file,
+              });
+            })
+            .catch((error) => {
+              console.error(error + "fail");
+            });
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+  const HandleClickSharedFolder = () => {
+    handleClose();
+    setModalIsOpen2(true);
+    props.dispatch({
+      type: "ResestDataUser",
+    });
+  };
+  const HandleClickSharedDocument = () => {
+    handleClose();
+    setModalIsOpen3(true);
+    props.dispatch({
+      type: "ResestDataUser",
+    });
   };
   //
   return (
@@ -163,7 +354,7 @@ function Document(props) {
             <div className="wrapperNameFolder">
               <p>Name</p>
             </div>
-            <div className="wrapperdiv"></div>
+            <div className="wrapperdiv">By User</div>
             <div className="wrapperOwner">
               <p>By ID</p>
             </div>
@@ -176,8 +367,10 @@ function Document(props) {
             <div
               className="wrapperFolder"
               key={e.ID}
-              onClick={() => handleClickFolder(e.ID)}
-              onContextMenu={() => handleRightClickFolder()}
+              onDoubleClick={() =>
+                handleClickFolder(e.ID, e.isPassWord, e.level)
+              }
+              onContextMenu={() => handleRightClickFolder(e.IDuser, e.ID)}
             >
               <div className="wrapperNameFolder">
                 <img className="wrapperImage" src={Folder} alt="user" />
@@ -191,13 +384,61 @@ function Document(props) {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem>Change Name</MenuItem>
-                  <MenuItem>Change PassWord</MenuItem>
-                  <MenuItem>Share</MenuItem>
-                  <MenuItem>Delete</MenuItem>
+                  <MenuItem onClick={() => HandleChangeName(e.ID)}>
+                    Change Name
+                  </MenuItem>
+                  <MenuItem onClick={() => handleClickChangPass(e.ID)}>
+                    Change PassWord
+                  </MenuItem>
+                  <MenuItem onClick={() => HandleClickSharedFolder()}>
+                    Share
+                  </MenuItem>
+                  <MenuItem onClick={() => handleDeletefolder()}>
+                    Delete
+                  </MenuItem>
+                </Menu>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl3}
+                  keepMounted
+                  open={Boolean(anchorEl3)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    <input
+                      style={{ marginRight: 10 }}
+                      type="text"
+                      onChange={handleTextNameFolder}
+                      value={valueName}
+                    />
+                  </MenuItem>
+                  <MenuItem onClick={() => HandleChangeNameSend(e.ID)}>
+                    Change Name Folder
+                  </MenuItem>
+                  {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
+                </Menu>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl4}
+                  keepMounted
+                  open={Boolean(anchorEl4)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    <input
+                      style={{ marginRight: 10 }}
+                      type="text"
+                      onChange={handleTextPassWord}
+                      value={valuePassWord}
+                    />
+                  </MenuItem>
+                  <MenuItem onClick={() => HandleSendChangPass()}>
+                    Change PassWord
+                  </MenuItem>
+                  {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
                 </Menu>
               </div>
-              <div className="wrapperdiv"></div>
+              <div className="wrapperdiv">{e.name}</div>
               <div className="wrapperOwner">
                 <p>{e.IDuser}</p>
               </div>
@@ -213,15 +454,15 @@ function Document(props) {
             <div
               className="wrapperFile"
               key={e.ID}
-              onContextMenu={() => handleRightClickFile()}
-              onClick={() => {
+              onContextMenu={() => handleRightClickFile(e.IDuser, e.ID)}
+              onDoubleClick={() => {
                 HandleDownLoadFile(e.ID);
               }}
             >
               <div className="wrapperNameFolder">
                 <p>{e.Name}</p>
               </div>
-              <div className="wrapperdiv"></div>
+              <div className="wrapperdiv">{e.name}</div>
               <Menu
                 // id="simple-menu"
                 anchorEl={anchorEl2}
@@ -229,9 +470,13 @@ function Document(props) {
                 open={Boolean(anchorEl2)}
                 onClose={handleClose}
               >
-                <MenuItem>Change Name</MenuItem>
-                <MenuItem>Share</MenuItem>
-                <MenuItem>Delete</MenuItem>
+                {/* <MenuItem>Change Name</MenuItem> */}
+                <MenuItem onClick={() => HandleClickSharedDocument()}>
+                  Share
+                </MenuItem>
+                <MenuItem onClick={() => HandleDeleteDoc(e.ID)}>
+                  Delete
+                </MenuItem>
               </Menu>
               <div className="wrapperOwner">
                 <p>{e.IDuser}</p>
@@ -242,6 +487,21 @@ function Document(props) {
             </div>
           ))}
         </div>
+        <Modal isOpen={modalIsOpen} className="Modal">
+          <CheckPassWork handleCloseCheckPass={handleCloseCheckPass} />
+        </Modal>
+        <Modal isOpen={modalIsOpen2} className="Modal">
+          <SharedFolder
+            handleCloseSharedFolder={handleCloseSharedFolder}
+            IDFolderValue={IDFolderValue}
+          />
+        </Modal>
+        <Modal isOpen={modalIsOpen3} className="Modal">
+          <SharedDocument
+            handleCloseSharedDocument={handleCloseSharedDocument}
+            IDDocValue={IDDocValue}
+          />
+        </Modal>
       </Scrollbars>
     </div>
   );
@@ -260,6 +520,7 @@ function mapStateToProps(state) {
     FileFromFolder: state.FileFromFolder,
     DataBack: state.DataBack,
     IDRoom: state.IDRoom,
+    IDFolder: state.IDFolder,
   };
 }
 export default connect(mapStateToProps)(Document);

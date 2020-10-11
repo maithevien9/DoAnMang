@@ -1,44 +1,47 @@
 .textInput {
-    display: inline-block;
+  display: inline-block;
 }
 .wrapper {
-    align-items: center;
-    justify-content: space-around;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #a4d3ee;
 }
-.wrapper {
-    background-color: #a4d3ee;
-}
+// .wrapper {
+// }
 .textInput {
-    width: 100%;
-    font-size: 16px;
-    padding-left: 40px;
-    background-color: white;
-    background-image: url("../../../public/image/search.png");
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
-    background-size: 25px;
+  width: 100%;
+  font-size: 16px;
+  padding-left: 40px;
+  background-color: white;
+  background-image: url("../../../public/image/search.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 25px;
 }
 
 .textInput:focus {
-    border-color: rgb(250, 250, 250);
-    box-shadow: 0 0 8px 0 rgb(17, 50, 116);
+  border-color: rgb(250, 250, 250);
+  box-shadow: 0 0 8px 0 rgb(17, 50, 116);
 }
 .btnUser {
-    margin: 0;
-    width: 80px;
+  margin: 0;
+  width: 80px;
 }
 .btnMore {
-    width: 80px;
+  width: 80px;
 }
 .home {
-    width: 100px;
+  width: 100px;
 }
 .search {
-    margin-left: 20%;
+  margin-left: 20%;
 }
 .btn {
-    width: 160px;
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 10%;
+  width: 160px;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 10%;
+}
+.wrapperFormInfor{
+  display: flex;
 }

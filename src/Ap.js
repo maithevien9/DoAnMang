@@ -4,10 +4,57 @@ import Home from "./Components/Home/index.jsx";
 import GetDataLogin from "./LocalStorage/GetDataLogin";
 import CheckLogin from "./RestAPI/CheckLogin";
 import { connect } from "react-redux";
+import GetInforUser from "./RestAPI/User/GetInforUser";
 function Ap(props) {
   const [valueLogin, setValueLogin] = useState(false);
   const [dataCheck, setDataCheck] = useState([]);
   useEffect(() => {
+    if (props.DataUser.dataString === "THANH_CONG") {
+      if (props.DataUser.data[0].IDGroup === 1) {
+        props.dispatch({
+          type: "setDataCheckAdmin",
+          data: true,
+        });
+        props.dispatch({
+          type: "setDataCheckManager",
+          data: true,
+        });
+      }
+      if (props.DataUser.data[0].IDGroup === 2) {
+        props.dispatch({
+          type: "setDataCheckAdmin",
+          data: false,
+        });
+        props.dispatch({
+          type: "setDataCheckManager",
+          data: true,
+        });
+      }
+      if (props.DataUser.data[0].IDGroup === 3) {
+        props.dispatch({
+          type: "setDataCheckAdmin",
+          data: false,
+        });
+        props.dispatch({
+          type: "setDataCheckManager",
+          data: false,
+        });
+      }
+    }
+    GetInforUser(props.DataUser.token)
+      .then((json) => {
+        var DataInfor = JSON.parse(JSON.stringify(json));
+        console.log(DataInfor);
+        if (DataInfor.dataString === "THANH_CONG") {
+          props.dispatch({
+            type: "setDataInfor",
+            data: DataInfor.data,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
     CheckLogin(props.DataUser.token)
       .then((json) => {
         // setDataCheck(json);
@@ -26,6 +73,14 @@ function Ap(props) {
     setValueLogin(true);
   }
   function handleLogOut() {
+    // props.dispatch({
+    //   type: "setDataCheckAdmin",
+    //   data: true,
+    // });
+    // props.dispatch({
+    //   type: "setDataCheckManager",
+    //   data: true,
+    // });
     setValueLogin(false);
   }
   return (

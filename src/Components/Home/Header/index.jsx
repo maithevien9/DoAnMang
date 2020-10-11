@@ -25,17 +25,32 @@ import Popover from "@material-ui/core/Popover";
 import "./Header.scss";
 import ShareWithMe from "../../../RestAPI/Folder/ShareWithMe.js";
 import MyDocument from "../../../RestAPI/User/MyDocument.js";
-
+import DocumentManage from "../../../RestAPI/Admin/DocumentManage.js";
+import GetUser from "../../../RestAPI/Admin/GetUser.js";
+import UpdateForm from "./ChangInfor/index";
+import Modal from "react-modal";
 Header.propTypes = {
   handleLogOut2: PropTypes.func,
+  HandleProvide: PropTypes.func,
+  HandleProvide2: PropTypes.func,
 };
 Header.Authenication = {
   handleLogOut2: null,
+  HandleProvide: null,
+  HandleProvide2: null,
 };
 const options = ["None", "Atria", "Callisto", "Dione"];
 function Header(props) {
   const [valueUser, setValueUser] = useState(true);
-  const { handleLogOut2 } = props;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const {
+    handleLogOut2,
+    HandleProvide,
+    HandleProvide2,
+    ValueCheckAdmin,
+  } = props;
+  var temp1 = false;
+  var temp2 = true;
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
 
@@ -67,6 +82,23 @@ function Header(props) {
       SaveDataLogin({
         dataString: "KHONG_THANH_CONG",
       });
+    }
+  };
+  const handleProvideOpen = () => {
+    GetUser()
+      .then((json) => {
+        var DataUser = JSON.parse(JSON.stringify(json));
+        console.log(DataUser);
+        props.dispatch({
+          type: "SetData",
+          data: DataUser.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+    if (HandleProvide) {
+      HandleProvide();
     }
   };
   const HandleShareWithMe = () => {
@@ -119,10 +151,45 @@ function Header(props) {
         console.error(error + "fail");
       });
   };
+  const HandleDocumentManagement = () => {
+    DocumentManage()
+      .then((json) => {
+        var dataCheck = JSON.parse(JSON.stringify(json));
+        console.log(json);
+        if (dataCheck.dataString === "THANH_CONG") {
+          props.dispatch({
+            type: "Reset",
+          });
 
+          props.dispatch({
+            type: "SetDataFolder",
+            data: dataCheck.data,
+          });
+
+          props.dispatch({
+            type: "SetDataFile",
+            dataFile: dataCheck.data2,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error + "fail");
+      });
+  };
+  const HandleRegister = () => {
+    if (HandleProvide2) {
+      HandleProvide2();
+    }
+  };
+  const handleCloseFormInfor = () => {
+    setModalIsOpen(false);
+  };
+  const HandleProfile = () => {
+    setModalIsOpen(true);
+  };
   return (
     <div style={styles.wrapper} class="wrapper">
-      <div class="home">
+      <div class="home" style={{ marginLeft: 70 }}>
         <img style={styles.imageLogo} src={Logo} alt="Logo" class="image" />
       </div>
 
@@ -166,8 +233,24 @@ function Header(props) {
             >
               Shared With Me
             </MenuItem>
-            <MenuItem>Provide Manager Rights</MenuItem>
-            <MenuItem>Document Manager</MenuItem>
+            <MenuItem
+              onClick={handleProvideOpen}
+              disabled={props.ValueCheckManager}
+            >
+              Provide Manager Rights
+            </MenuItem>
+            <MenuItem
+              disabled={props.ValueCheckAdmin}
+              onClick={() => HandleDocumentManagement()}
+            >
+              Document Managerment
+            </MenuItem>
+            <MenuItem
+              disabled={props.ValueCheckManager}
+              onClick={() => HandleRegister()}
+            >
+              Register
+            </MenuItem>
           </Popover>
         </div>
 
@@ -196,11 +279,36 @@ function Header(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem
+              onClick={() => {
+                console.log(props.DataInforUser[0]);
+              }}
+            >
+              <div className="wrapperFormInfor">
+                <p>User Information : </p>
+                <p>{props.DataInforUser[0].Name}</p>
+              </div>
+              {/* <div className="wrapperFormInfor">
+                <p>Address: </p>
+                <p>{props.DataInforUser[0].Address}</p>
+              </div>
+              
+              <div className="wrapperFormInfor">
+                <p>Phone: </p>
+                <p>{props.DataInforUser[0].Phone}</p>
+              </div> */}
+            </MenuItem>
+            <MenuItem onClick={HandleProfile}>Update User Information</MenuItem>
             <MenuItem onClick={handleLogOutHeader}>Logout</MenuItem>
           </Menu>
         </div>
       </div>
+      <Modal isOpen={modalIsOpen} className="Modal">
+        <UpdateForm
+          handleCloseFormInfor={handleCloseFormInfor}
+          // IDDocValue={IDDocValue}
+        />
+      </Modal>
     </div>
   );
 }
@@ -211,6 +319,8 @@ var styles = {
     display: "flex",
     borderRadius: 10,
     marginBottom: 10,
+
+    backgroundColor: "#a4d3ee",
   },
   imageLogo: {
     height: 70,
@@ -255,6 +365,9 @@ function mapStateToProps(state) {
     FileFromFolder: state.FileFromFolder,
     DataBack: state.DataBack,
     IDRoom: state.IDRoom,
+    ValueCheckAdmin: state.ValueCheckAdmin,
+    ValueCheckManager: state.ValueCheckManager,
+    DataInforUser: state.DataInforUser,
   };
 }
 export default connect(mapStateToProps)(Header);

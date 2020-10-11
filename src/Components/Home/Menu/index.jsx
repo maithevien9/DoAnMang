@@ -9,6 +9,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Upload from "../../../RestAPI/Document/Upload.js";
 import GetFolderAndFileFromFolder from "../../../RestAPI/Folder/GetFolderAndFileFromFolder.js";
+import AddFolder from "./AddFolder/index.js";
+import Modal from "react-modal";
 const StyledTree = styled.div`
   line-height: 1.5;
 `;
@@ -83,6 +85,7 @@ function TreeView(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [fileUp, setfileUp] = React.useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -92,8 +95,15 @@ function TreeView(props) {
   };
   const HandleClickRoom = (value) => {
     props.dispatch({
+      type: "ResetIDFolder",
+    });
+    props.dispatch({
       type: "Reset",
     });
+    props.dispatch({
+      type: "ResetLevel",
+    });
+
     console.log("Reset");
     GetFolderFromRoom(value)
       .then((json) => {
@@ -111,19 +121,31 @@ function TreeView(props) {
           type: "SetIDRoom",
           ID: value,
         });
+        props.dispatch({
+          type: "setLevel",
+          data: 0,
+        });
       })
       .catch((error) => {
         console.error(error + "fail");
       });
   };
   const HandleAdd = () => {
-    setAnchorEl(true);
+    if (props.IDRoom === 1) {
+      alert("Please Click Folder or Room");
+    } else {
+      setAnchorEl(true);
+    }
   };
   const HandleAdd2 = () => {
-    setAnchorEl2(true);
+    if (props.IDFolder !== 1999999999) {
+      setAnchorEl2(true);
+    } else {
+      alert("CLick into Folder");
+    }
   };
   const HandleAddFile = () => {
-    if (props.IDFolder !== 1999999999 && fileUp != null) {
+    if (fileUp != null) {
       var data = new FormData();
       data.append("photo", fileUp);
       data.append("Token", props.DataUser.token);
@@ -207,6 +229,13 @@ function TreeView(props) {
     var fileUplooad = e.target.files;
     setfileUp(fileUplooad[0]);
   };
+  const handleCloseAddFolder = () => {
+    setModalIsOpen(false);
+  };
+  const HandleADDFolder = () => {
+    setModalIsOpen(true);
+  };
+
   return (
     <div className="App">
       <div className="wrapperAdd" onClick={() => HandleAdd()}>
@@ -219,7 +248,7 @@ function TreeView(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>Add Folder</MenuItem>
+        <MenuItem onClick={() => HandleADDFolder()}>Add Folder</MenuItem>
         <MenuItem onClick={() => HandleAdd2()}>File Upload File</MenuItem>
         {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
       </Menu>
@@ -313,6 +342,12 @@ function TreeView(props) {
           <Tree.File name="Room704" />
         </Tree.Folder>
       </Tree>
+      <Modal isOpen={modalIsOpen} className="Modal">
+        <AddFolder
+          handleCloseAddFolder={handleCloseAddFolder}
+          // IDDocValue={IDDocValue}
+        />
+      </Modal>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { createStore, combineReducers } from "redux";
 
 var dataUser1 = localStorage.getItem("@save");
+var dataUser = [];
 if (dataUser1 == null) {
-  var dataUser = [
+  dataUser = [
     {
       dataString: "KHONG_THANH_CONG",
       data: [],
@@ -10,18 +11,69 @@ if (dataUser1 == null) {
     },
   ];
 } else {
-  var dataUser = JSON.parse(dataUser1);
+  dataUser = JSON.parse(dataUser1);
 }
 
 var dataFolderFromRoom = [];
 var dataFromFolder = [];
 var FileFromFolder = [];
 var DataBack = [{ id: "temp" }];
-var IDRoom = 101;
+var IDRoom = 1;
+var level = 0;
+var IDParent = null;
 var IDFolder = 1999999999;
-// console.log(dataUser);
+var arrUser = [];
+var ValueCheckAdmin = true;
+var ValueCheckManage = true;
+var DataUserSearch = [];
+var DataUserSearchPush = [];
+var DataInforUser = [];
+const DataInforUserReducer = (state = DataInforUser, action) => {
+  if (action.type === "setDataInfor") return action.data;
+  if (action.type === "ResetInfor") return action.data;
+  return state;
+};
+const IDParentReducer = (state = IDParent, action) => {
+  if (action.type === "setIDParent") return action.data;
+  if (action.type === "ResetIDParent") return 0;
+  return state;
+};
+const levelFolderReducer = (state = level, action) => {
+  if (action.type === "setLevel") return action.data;
+  if (action.type === "ResetLevel") return 0;
+  return state;
+};
+const DataUserSearchReducer = (state = DataUserSearch, action) => {
+  if (action.type === "SetDataUserSearch") return action.data;
+  return state;
+};
+const DataUserSearchPushReducer = (state = DataUserSearchPush, action) => {
+  if (action.type === "SetDataUserSearchPush")
+    return [action.data].concat(state);
+  if (action.type === "ResestDataUser") return [];
+  // if (action.type === "delete") {
+  //   return state.map((e) => {
+  //     if (e !== action.ID) return e;
+  //     console.log(e);
+  //   });
+  // }
+  return state;
+};
 
+const ValueCheckAdminReducer = (state = ValueCheckAdmin, action) => {
+  if (action.type === "setDataCheckAdmin") return action.data;
+  return state;
+};
+const ValueCheckManagerReducer = (state = ValueCheckManage, action) => {
+  if (action.type === "setDataCheckManager") return action.data;
+  return state;
+};
+const arrUserReducer = (state = arrUser, action) => {
+  if (action.type === "SetData") return action.data;
+  return state;
+};
 const dataUserReducer = (state = dataUser, action) => {
+  if (action.type === "Login") return action.data;
   return state;
 };
 const dataFromFolderReducer = (state = dataFromFolder, action) => {
@@ -64,11 +116,13 @@ const DataBackReducer = (state = DataBack, action) => {
 };
 const IDRoomReducer = (state = IDRoom, action) => {
   if (action.type === "SetIDRoom") return action.ID;
+  if (action.type === "ResetIDRoom") return 1;
   return state;
 };
 
 const IDFolderReducer = (state = IDFolder, action) => {
   if (action.type === "SetIDFolder") return action.ID;
+  if (action.type === "ResetIDFolder") return 1999999999;
   return state;
 };
 const reducer = combineReducers({
@@ -79,6 +133,14 @@ const reducer = combineReducers({
   DataBack: DataBackReducer,
   IDRoom: IDRoomReducer,
   IDFolder: IDFolderReducer,
+  arrUser: arrUserReducer,
+  ValueCheckAdmin: ValueCheckAdminReducer,
+  ValueCheckManager: ValueCheckManagerReducer,
+  DataUserSearch: DataUserSearchReducer,
+  DataUserSearchPush: DataUserSearchPushReducer,
+  levelFolder: levelFolderReducer,
+  IDParent: IDParentReducer,
+  DataInforUser: DataInforUserReducer,
 });
 const store = createStore(reducer);
 

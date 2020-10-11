@@ -4,6 +4,9 @@ import "./Authentication.scss";
 import br from "../../public/image/br.PNG";
 import LoginAPI from "../../RestAPI/Login";
 import SaveDataLogin from "../../LocalStorage/SaveDataLogin.js";
+import SaveDataInforUser from "../../LocalStorage/SaveDataInforUser.js";
+import GetInforUser from "../../RestAPI/User/GetInforUser.js";
+import { connect } from "react-redux";
 Authenication.propTypes = {
   handleLogin: PropTypes.func,
 };
@@ -26,8 +29,56 @@ function Authenication(props) {
         setDatalogin(json);
         if (DataLoginUser.dataString === "THANH_CONG") {
           if (handleLogin) {
+            props.dispatch({
+              type: "Login",
+              data: DataLoginUser,
+            });
             handleLogin();
             SaveDataLogin(DataLoginUser);
+            GetInforUser(props.DataUser.token)
+              .then((json) => {
+                var DataInfor = JSON.parse(JSON.stringify(json));
+                console.log(DataInfor);
+                if (DataInfor.dataString === "THANH_CONG") {
+                  props.dispatch({
+                    type: "setDataInfor",
+                    data: DataInfor.data,
+                  });
+                }
+              })
+              .catch((error) => {
+                console.error(error + "fail");
+              });
+            if (DataLoginUser.data[0].IDGroup === 1) {
+              props.dispatch({
+                type: "setDataCheckAdmin",
+                data: true,
+              });
+              props.dispatch({
+                type: "setDataCheckManager",
+                data: true,
+              });
+            }
+            if (DataLoginUser.data[0].IDGroup === 2) {
+              props.dispatch({
+                type: "setDataCheckAdmin",
+                data: false,
+              });
+              props.dispatch({
+                type: "setDataCheckManager",
+                data: true,
+              });
+            }
+            if (DataLoginUser.data[0].IDGroup === 3) {
+              props.dispatch({
+                type: "setDataCheckAdmin",
+                data: false,
+              });
+              props.dispatch({
+                type: "setDataCheckManager",
+                data: false,
+              });
+            }
           }
         } else {
           alert("Login fail");
@@ -117,4 +168,14 @@ var styles = {
     paddingTop: 100,
   },
 };
-export default Authenication;
+
+function mapStateToProps(state) {
+  return {
+    DataUser: state.DataUser,
+    DataFolderRoom: state.DataFolderRoom,
+    FileFromFolder: state.FileFromFolder,
+    DataBack: state.DataBack,
+    IDRoom: state.IDRoom,
+  };
+}
+export default connect(mapStateToProps)(Authenication);
