@@ -143,7 +143,8 @@ function Header(props) {
 
           props.dispatch({
             type: "SetDataFile",
-            dataFile: dataCheck.data2,
+            // dataFile: dataCheck.data2,
+            dataFile: [],
           });
         }
       })

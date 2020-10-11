@@ -78,6 +78,7 @@ const dataUserReducer = (state = dataUser, action) => {
 };
 const dataFromFolderReducer = (state = dataFromFolder, action) => {
   if (action.type === "SetDataFolderDocument") return action.data;
+
   return state;
 };
 const FileFromFolderReducer = (state = FileFromFolder, action) => {
@@ -89,11 +90,56 @@ const FileFromFolderReducer = (state = FileFromFolder, action) => {
         SendTime: action.SendTime,
       },
     ].concat(state);
+  // if (action.type === "DeleteFile") {
+  //   console.log("delete");
+  //   return state.filter((e) => {
+  //     if (e.ID !== action.IDfile) {
+  //       return e;
+  //     }
+  //   });
+  // }
+  if (action.type === "DeleteFile") {
+    console.log("delete");
+    return state.filter((e) => {
+      if (e.ID !== action.IDfile) {
+        return e;
+      }
+    });
+  }
   if (action.type === "SetDataFile") return action.dataFile;
   return state;
 };
 const dataFolderFromRoomReducer = (state = dataFolderFromRoom, action) => {
   if (action.type === "SetDataFolder") return action.data;
+  if (action.type === "ChangNameFolder") {
+    // return state.map((item, i) =>
+    //   i === action.IDfolder ? { ...i, Name: action.Name } : item
+    // );
+    // console.log(action.Name);
+    // console.log(action.IDfolder);
+    return state.map((e) => {
+      if (e.ID !== action.IDfolder) return e;
+      else {
+        return { ...e, Name: action.Name };
+      }
+    });
+  }
+
+  if (action.type === "DeleteFolder") {
+    console.log("delete");
+    return state.filter((e) => {
+      if (e.ID !== action.IDfolder) {
+        return e;
+      }
+    });
+    // return state.map((e) => {
+    //   if (e.ID !== action.IDfolder) return e;
+    //   else {
+    //     console.log(e);
+    //   }
+    // });
+  }
+
   return state;
 };
 const DataBackReducer = (state = DataBack, action) => {

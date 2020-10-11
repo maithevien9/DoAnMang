@@ -229,25 +229,31 @@ function Document(props) {
         var dataCheck = JSON.parse(JSON.stringify(json));
         console.log(dataCheck.dataString);
         if (dataCheck.dataString === "THANH_CONG") {
-          GetFolderAndFileFromFolder(props.IDFolder)
-            .then((json) => {
-              var DataFileFolder = JSON.parse(JSON.stringify(json));
-              console.log(DataFileFolder.data);
-              console.log(DataFileFolder.file);
+          // GetFolderAndFileFromFolder(props.IDFolder)
+          //   .then((json) => {
+          //     var DataFileFolder = JSON.parse(JSON.stringify(json));
+          //     console.log(DataFileFolder.data);
+          //     console.log(DataFileFolder.file);
 
-              props.dispatch({
-                type: "SetDataFolder",
-                data: DataFileFolder.data,
-              });
+          //     props.dispatch({
+          //       type: "SetDataFolder",
+          //       data: DataFileFolder.data,
+          //     });
 
-              props.dispatch({
-                type: "SetDataFile",
-                dataFile: DataFileFolder.file,
-              });
-            })
-            .catch((error) => {
-              console.error(error + "fail");
-            });
+          //     props.dispatch({
+          //       type: "SetDataFile",
+          //       dataFile: DataFileFolder.file,
+          //     });
+          //   })
+          //   .catch((error) => {
+          //     console.error(error + "fail");
+          //   });
+          props.dispatch({
+            type: "ChangNameFolder",
+            Name: valueName,
+            IDfolder: IDFolderValue,
+          });
+          alert("Success");
           handleClose();
         }
       })
@@ -289,6 +295,11 @@ function Document(props) {
         var dataCheck = JSON.parse(JSON.stringify(json));
         console.log(dataCheck.dataString);
         if (dataCheck.dataString === "THANH_CONG") {
+          props.dispatch({
+            type: "DeleteFolder",
+            IDfolder: IDFolderValue,
+          });
+          alert("Success");
           handleClose();
         }
       })
@@ -303,25 +314,30 @@ function Document(props) {
         var dataCheck = JSON.parse(JSON.stringify(json));
         console.log(dataCheck.dataString);
         if (dataCheck.dataString === "THANH_CONG") {
-          GetFolderAndFileFromFolder(props.IDFolder)
-            .then((json) => {
-              var DataFileFolder = JSON.parse(JSON.stringify(json));
-              console.log(DataFileFolder.data);
-              console.log(DataFileFolder.file);
+          props.dispatch({
+            type: "DeleteFile",
+            IDfile: IDDocValue,
+          });
+          alert("Success");
+          // GetFolderAndFileFromFolder(props.IDFolder)
+          //   .then((json) => {
+          //     var DataFileFolder = JSON.parse(JSON.stringify(json));
+          //     console.log(DataFileFolder.data);
+          //     console.log(DataFileFolder.file);
 
-              props.dispatch({
-                type: "SetDataFolder",
-                data: DataFileFolder.data,
-              });
+          //     props.dispatch({
+          //       type: "SetDataFolder",
+          //       data: DataFileFolder.data,
+          //     });
 
-              props.dispatch({
-                type: "SetDataFile",
-                dataFile: DataFileFolder.file,
-              });
-            })
-            .catch((error) => {
-              console.error(error + "fail");
-            });
+          //     props.dispatch({
+          //       type: "SetDataFile",
+          //       dataFile: DataFileFolder.file,
+          //     });
+          //   })
+          //   .catch((error) => {
+          //     console.error(error + "fail");
+          //   });
           handleClose();
         }
       })

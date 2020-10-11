@@ -50,6 +50,15 @@ function UpdateForm(props) {
         console.log(Data);
         if (Data.dataString === "THANH_CONG") {
           alert("THANH_CONG");
+          var dataSend = [
+            { Name: valueName, Phone: valuePhone, Address: valueAddress },
+          ];
+
+          console.log(dataSend);
+          props.dispatch({
+            type: "setDataInfor",
+            data: dataSend,
+          });
           handleCloseFormInfor();
         }
       })
