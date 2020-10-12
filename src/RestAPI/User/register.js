@@ -1,6 +1,6 @@
-const register = (user, password, room) => {
-  var url = "http://localhost:8000/Register/";
-  return fetch(url, {
+const register = async (user, password, room) => {
+  var url = "http://192.168.137.64:8000/Register/";
+  return await fetch(url, {
     method: "POST",
     headers: {
       Accept: "application/json",

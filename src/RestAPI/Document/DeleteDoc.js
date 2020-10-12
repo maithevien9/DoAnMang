@@ -1,7 +1,7 @@
-const DeleteDoc = (IDFolder, token) => {
-  var url = `http://localhost:8000/DeleteDocument/${IDFolder}`;
+const DeleteDoc = async (IDFolder, token) => {
+  var url = `http://192.168.137.64:8000/DeleteDocument/${IDFolder}`;
 
-  return fetch(url, {
+  return await fetch(url, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

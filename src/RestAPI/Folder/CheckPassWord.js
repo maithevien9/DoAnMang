@@ -1,7 +1,7 @@
-const checkPassWord = (ID, password) => {
-  var url = `http://localhost:8000/CheckPass/${password}/IDfolder/${ID}/`;
+const checkPassWord = async (ID, password) => {
+  var url = `http://192.168.137.64:8000/CheckPass/${password}/IDfolder/${ID}/`;
 
-  return fetch(url).then((response) => response.json());
+  return await fetch(url).then((response) => response.json());
 };
 
 export default checkPassWord;

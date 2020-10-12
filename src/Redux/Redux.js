@@ -27,7 +27,13 @@ var ValueCheckAdmin = true;
 var ValueCheckManage = true;
 var DataUserSearch = [];
 var DataUserSearchPush = [];
-var DataInforUser = [];
+var DataInforUser = [
+  {
+    Name: "",
+    Phone: "",
+    Address: "",
+  },
+];
 const DataInforUserReducer = (state = DataInforUser, action) => {
   if (action.type === "setDataInfor") return action.data;
   if (action.type === "ResetInfor") return action.data;

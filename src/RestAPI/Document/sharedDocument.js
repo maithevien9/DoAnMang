@@ -1,6 +1,6 @@
-const sharedDocument = (IDDoc, IDUser, Token) => {
-  var url = "http://localhost:8000/SharedDocument/";
-  return fetch(url, {
+const sharedDocument = async (IDDoc, IDUser, Token) => {
+  var url = "http://192.168.137.64:8000/SharedDocument/";
+  return await fetch(url, {
     method: "POST",
     headers: {
       Accept: "application/json",

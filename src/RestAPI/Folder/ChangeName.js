@@ -1,7 +1,7 @@
-const ChangName = (IDFolder, Name, token) => {
-  var url = `http://localhost:8000/ChangeName/`;
+const ChangName = async (IDFolder, Name, token) => {
+  var url = `http://192.168.137.64:8000/ChangeName/`;
 
-  return fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: {
       Accept: "application/json",

@@ -1,7 +1,7 @@
-const ChangePassWord = (IDFolder, PassWord, token) => {
-  var url = `http://localhost:8000/ChangePassWord/`;
+const ChangePassWord = async (IDFolder, PassWord, token) => {
+  var url = `http://192.168.137.64:8000/ChangePassWord/`;
 
-  return fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: {
       Accept: "application/json",

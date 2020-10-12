@@ -11,6 +11,10 @@ import Upload from "../../../RestAPI/Document/Upload.js";
 import GetFolderAndFileFromFolder from "../../../RestAPI/Folder/GetFolderAndFileFromFolder.js";
 import AddFolder from "./AddFolder/index.js";
 import Modal from "react-modal";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Fade from "@material-ui/core/Fade";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 const StyledTree = styled.div`
   line-height: 1.5;
 `;
@@ -80,13 +84,29 @@ const Tree = ({ children }) => {
 
 Tree.File = File;
 Tree.Folder = Folder2;
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  button: {
+    margin: theme.spacing(2),
+  },
+  placeholder: {
+    height: 40,
+  },
+}));
 function TreeView(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [fileUp, setfileUp] = React.useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const [state, setState] = useState("");
+  const classes = useStyles();
+  const [loading, setLoading] = React.useState(false);
+  const [query, setQuery] = React.useState("idle");
+  const timerRef = React.useRef();
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -146,6 +166,7 @@ function TreeView(props) {
   };
   const HandleAddFile = () => {
     if (fileUp != null) {
+      setLoading(true);
       var data = new FormData();
       data.append("photo", fileUp);
       data.append("Token", props.DataUser.token);
@@ -155,6 +176,7 @@ function TreeView(props) {
           var dataCheck = JSON.parse(JSON.stringify(json));
           console.log(dataCheck.success);
           if (dataCheck.success === "THANH_CONG") {
+            setLoading(false);
             alert("THANH_CONG");
             console.log(fileUp.name);
             console.log(props.DataUser.data[0].ID);
@@ -235,7 +257,9 @@ function TreeView(props) {
   const HandleADDFolder = () => {
     setModalIsOpen(true);
   };
-
+  const handleClickLoading = () => {
+    setLoading(true);
+  };
   return (
     <div className="App">
       <div className="wrapperAdd" onClick={() => HandleAdd()}>
@@ -268,7 +292,21 @@ function TreeView(props) {
             }}
           />
         </MenuItem>
-        <MenuItem onClick={() => HandleAddFile()}>Send</MenuItem>
+
+        <MenuItem>
+          <Fade
+            in={loading}
+            style={{
+              transitionDelay: loading ? "800ms" : "0ms",
+            }}
+            unmountOnExit
+          >
+            <CircularProgress />
+          </Fade>
+          <Button onClick={HandleAddFile} className={classes.button}>
+            {loading ? "Is Sending" : "Send"}
+          </Button>
+        </MenuItem>
         {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
       </Menu>
       <h1>ROOMS</h1>
@@ -342,6 +380,8 @@ function TreeView(props) {
           <Tree.File name="Room704" />
         </Tree.Folder>
       </Tree>
+      {/* <CircularProgress className="Circuler" state={state} /> */}
+
       <Modal isOpen={modalIsOpen} className="Modal">
         <AddFolder
           handleCloseAddFolder={handleCloseAddFolder}

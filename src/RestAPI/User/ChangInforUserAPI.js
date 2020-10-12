@@ -1,6 +1,6 @@
-const ChangInforUserAPI = (Token, Name, Address, Phone) => {
-  var url = "http://localhost:8000/ChangInfor/";
-  return fetch(url, {
+const ChangInforUserAPI = async (Token, Name, Address, Phone) => {
+  var url = "http://192.168.137.64:8000/ChangInfor/";
+  return await fetch(url, {
     method: "PUT",
     headers: {
       Accept: "application/json",

@@ -1,6 +1,6 @@
-const Upload = (formdata) => {
+const Upload = async (formdata) => {
   // console.log(IDFolder + " = " + Token);
-  //   var url = `http://localhost:8000/Upload/`;
+  //   var url = `http://192.168.137.64:8000/Upload/`;
   //   return fetch(url).then((response) => response.json());
 
   var requestOptions = {
@@ -9,8 +9,8 @@ const Upload = (formdata) => {
     redirect: "follow",
   };
 
-  return fetch(
-    "http://localhost:8000/upload/",
+  return await fetch(
+    "http://192.168.137.64:8000/upload/",
     requestOptions
   ).then((response) => response.json());
 };
