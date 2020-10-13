@@ -1,6 +1,6 @@
 const provideManager = async (ID, value) => {
   console.log(value + " " + ID);
-  var url = `http://192.168.137.64:8000/provideManage`;
+  var url = `http://localhost:8000/provideManage`;
   return await fetch(url, {
     method: "PUT",
     headers: {

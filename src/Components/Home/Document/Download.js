@@ -7,5 +7,5 @@ export default async function HandleDownLoadFile(value) {
   //   GetFolderFromRoom(value).catch((error) => {
   //     console.error(error + "fail");
   //   });
-  await openInNewTab(`http://192.168.137.64:8000/download/${value}`);
+  await openInNewTab(`http://localhost:8000/download/${value}`);
 }

@@ -1,5 +1,5 @@
 const ChangName = async (IDFolder, Name, token) => {
-  var url = `http://192.168.137.64:8000/ChangeName/`;
+  var url = `http://localhost:8000/ChangeName/`;
 
   return await fetch(url, {
     method: "PUT",

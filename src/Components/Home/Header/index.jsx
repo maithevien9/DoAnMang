@@ -29,6 +29,8 @@ import DocumentManage from "../../../RestAPI/Admin/DocumentManage.js";
 import GetUser from "../../../RestAPI/Admin/GetUser.js";
 import UpdateForm from "./ChangInfor/index";
 import Modal from "react-modal";
+import SearchAPI from "../../../RestAPI/Document/SearchAPI.js";
+
 Header.propTypes = {
   handleLogOut2: PropTypes.func,
   HandleProvide: PropTypes.func,
@@ -53,6 +55,7 @@ function Header(props) {
   var temp2 = true;
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
+  const [valueSearch, setValueSearch] = useState("");
 
   const handleClick2 = (event2) => {
     setAnchorE2(event2.currentTarget);
@@ -215,6 +218,48 @@ function Header(props) {
   const HandleProfile = () => {
     setModalIsOpen(true);
   };
+  function handleTextSearch(e) {
+    setValueSearch(e.target.value);
+  }
+  const handleSearch = () => {
+    alert(valueSearch);
+  };
+  function keyPressed(event) {
+    if (event.key === "Enter") {
+      alert(valueSearch);
+      SearchAPI(valueSearch)
+        .then((json) => {
+          var dataCheck = JSON.parse(JSON.stringify(json));
+          console.log(dataCheck.file);
+          if (dataCheck.dataString === "THANH_CONG") {
+            props.dispatch({
+              type: "Reset",
+            });
+
+            props.dispatch({
+              type: "SetDataFolder",
+              data: dataCheck.data,
+            });
+            props.dispatch({
+              type: "SetDataFile",
+              dataFile: dataCheck.file,
+            });
+            //temp
+            props.dispatch({
+              type: "DataFolderTemp",
+              data: dataCheck.data,
+            });
+            props.dispatch({
+              type: "DataFileTemp",
+              data: dataCheck.file,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error + "fail");
+        });
+    }
+  }
   return (
     <div style={styles.wrapper} class="wrapper">
       <div class="home" style={{ marginLeft: 70 }}>
@@ -227,6 +272,9 @@ function Header(props) {
           class="textInput"
           type="text"
           placeholder="Search..."
+          onChange={handleTextSearch}
+          value={valueSearch}
+          onKeyPress={keyPressed}
         ></input>
       </div>
 
