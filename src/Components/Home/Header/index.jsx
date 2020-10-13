@@ -120,6 +120,16 @@ function Header(props) {
             type: "SetDataFile",
             dataFile: dataCheck.data2,
           });
+
+          //temp
+          props.dispatch({
+            type: "DataFolderTemp",
+            data: dataCheck.data,
+          });
+          props.dispatch({
+            type: "DataFileTemp",
+            data: dataCheck.data2,
+          });
         }
       })
       .catch((error) => {
@@ -140,11 +150,18 @@ function Header(props) {
             type: "SetDataFolder",
             data: dataCheck.data,
           });
-
           props.dispatch({
             type: "SetDataFile",
-            // dataFile: dataCheck.data2,
-            dataFile: [],
+            dataFile: dataCheck.data2,
+          });
+          //temp
+          props.dispatch({
+            type: "DataFolderTemp",
+            data: dataCheck.data,
+          });
+          props.dispatch({
+            type: "DataFileTemp",
+            data: dataCheck.data2,
           });
         }
       })
@@ -169,7 +186,17 @@ function Header(props) {
 
           props.dispatch({
             type: "SetDataFile",
-            dataFile: dataCheck.data2,
+            dataFile: [],
+          });
+
+          //temp
+          props.dispatch({
+            type: "DataFolderTemp",
+            data: dataCheck.data,
+          });
+          props.dispatch({
+            type: "DataFileTemp",
+            data: [],
           });
         }
       })

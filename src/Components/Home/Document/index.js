@@ -17,7 +17,7 @@ import ChangePassWord from "../../../RestAPI/Folder/ChangePassWord";
 import DeleteFolder from "../../../RestAPI/Folder/DeleteFolder";
 import DeleteDoc from "../../../RestAPI/Document/DeleteDoc";
 import SharedDocument from "./SharedDocument/index.jsx";
-
+import MyDocument from "../../../RestAPI/User/MyDocument";
 Document.propTypes = {};
 
 function Document(props) {
@@ -83,22 +83,34 @@ function Document(props) {
       type: "Reset",
     });
     console.log("Reset");
-    GetFolderFromRoom(props.IDRoom)
-      .then((json) => {
-        DataFolderRoom = JSON.parse(JSON.stringify(json));
-
-        props.dispatch({
-          type: "SetDataFolder",
-          data: DataFolderRoom.data,
-        });
-        props.dispatch({
-          type: "SetDataFile",
-          dataFile: [],
-        });
-      })
-      .catch((error) => {
-        console.error(error + "fail");
+    if (props.IDRoom === 1) {
+      props.dispatch({
+        type: "SetDataFolder",
+        data: props.DataFolderTemp,
       });
+
+      props.dispatch({
+        type: "SetDataFile",
+        dataFile: props.DataFileTemp,
+      });
+    } else {
+      GetFolderFromRoom(props.IDRoom)
+        .then((json) => {
+          DataFolderRoom = JSON.parse(JSON.stringify(json));
+
+          props.dispatch({
+            type: "SetDataFolder",
+            data: DataFolderRoom.data,
+          });
+          props.dispatch({
+            type: "SetDataFile",
+            dataFile: [],
+          });
+        })
+        .catch((error) => {
+          console.error(error + "fail");
+        });
+    }
   };
   const handleClickFolder = (value, isPassWord, level) => {
     if (isPassWord === 1) {
@@ -224,30 +236,9 @@ function Document(props) {
     console.log(IDFolderValue + "/" + valueName + "/" + props.DataUser.token);
     ChangName(IDFolderValue, valueName, props.DataUser.token)
       .then((json) => {
-        // setDataCheck(json);
-        // console.log(dataCheck);
         var dataCheck = JSON.parse(JSON.stringify(json));
         console.log(dataCheck.dataString);
         if (dataCheck.dataString === "THANH_CONG") {
-          // GetFolderAndFileFromFolder(props.IDFolder)
-          //   .then((json) => {
-          //     var DataFileFolder = JSON.parse(JSON.stringify(json));
-          //     console.log(DataFileFolder.data);
-          //     console.log(DataFileFolder.file);
-
-          //     props.dispatch({
-          //       type: "SetDataFolder",
-          //       data: DataFileFolder.data,
-          //     });
-
-          //     props.dispatch({
-          //       type: "SetDataFile",
-          //       dataFile: DataFileFolder.file,
-          //     });
-          //   })
-          //   .catch((error) => {
-          //     console.error(error + "fail");
-          //   });
           props.dispatch({
             type: "ChangNameFolder",
             Name: valueName,
@@ -537,6 +528,8 @@ function mapStateToProps(state) {
     DataBack: state.DataBack,
     IDRoom: state.IDRoom,
     IDFolder: state.IDFolder,
+    DataFolderTemp: state.DataFolderTemp,
+    DataFileTemp: state.DataFileTemp,
   };
 }
 export default connect(mapStateToProps)(Document);

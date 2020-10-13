@@ -34,6 +34,18 @@ var DataInforUser = [
     Address: "",
   },
 ];
+var DataFolderTemp = [];
+var DataFileTemp = [];
+const DataFolderTempReducer = (state = DataFolderTemp, action) => {
+  if (action.type === "DataFolderTemp") return action.data;
+  if (action.type === "ResetFolderTemp") return [];
+  return state;
+};
+const DataFileTempReducer = (state = DataFileTemp, action) => {
+  if (action.type === "DataFileTemp") return action.data;
+  if (action.type === "ResetFileTemp") return [];
+  return state;
+};
 const DataInforUserReducer = (state = DataInforUser, action) => {
   if (action.type === "setDataInfor") return action.data;
   if (action.type === "ResetInfor") return action.data;
@@ -193,6 +205,8 @@ const reducer = combineReducers({
   levelFolder: levelFolderReducer,
   IDParent: IDParentReducer,
   DataInforUser: DataInforUserReducer,
+  DataFolderTemp: DataFolderTempReducer,
+  DataFileTemp: DataFileTempReducer,
 });
 const store = createStore(reducer);
 
