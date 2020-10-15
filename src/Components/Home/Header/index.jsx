@@ -30,6 +30,7 @@ import GetUser from "../../../RestAPI/Admin/GetUser.js";
 import UpdateForm from "./ChangInfor/index";
 import Modal from "react-modal";
 import SearchAPI from "../../../RestAPI/Document/SearchAPI.js";
+
 Header.propTypes = {
   handleLogOut2: PropTypes.func,
   HandleProvide: PropTypes.func,
@@ -217,6 +218,13 @@ function Header(props) {
   const HandleProfile = () => {
     setModalIsOpen(true);
   };
+  
+  function handleTextSearch(e) {
+    setValueSearch(e.target.value);
+  }
+  const handleSearch = () => {
+    alert(valueSearch);
+  };
   function keyPressed(event) {
     if (event.key === "Enter") {
       alert(valueSearch);
@@ -253,9 +261,11 @@ function Header(props) {
         });
     }
   }
+
   function handleTextSearch(e) {
     setValueSearch(e.target.value);
   }
+
   return (
     <div style={styles.wrapper} class="wrapper">
       <div class="home" style={{ marginLeft: 70 }}>
