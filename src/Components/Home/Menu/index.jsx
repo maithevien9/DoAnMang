@@ -188,7 +188,7 @@ function TreeView(props) {
           console.log(dataCheck.success);
           if (dataCheck.success === "THANH_CONG") {
             setLoading(false);
-            alert("THANH_CONG");
+            alert("Success");
             console.log(fileUp.name);
             console.log(props.DataUser.data[0].ID);
 

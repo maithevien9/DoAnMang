@@ -222,12 +222,9 @@ function Header(props) {
   function handleTextSearch(e) {
     setValueSearch(e.target.value);
   }
-  const handleSearch = () => {
-    alert(valueSearch);
-  };
+  const handleSearch = () => {};
   function keyPressed(event) {
     if (event.key === "Enter") {
-      alert(valueSearch);
       SearchAPI(valueSearch)
         .then((json) => {
           var dataCheck = JSON.parse(JSON.stringify(json));

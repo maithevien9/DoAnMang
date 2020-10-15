@@ -25,7 +25,6 @@ function SharedFolder(props) {
     setUserName(e.target.value);
   }
   const handleCheck = () => {
-    alert(UserName);
     SearchUser(UserName)
       .then((json) => {
         var dataCheck = JSON.parse(JSON.stringify(json));
@@ -43,8 +42,6 @@ function SharedFolder(props) {
       });
   };
   const handleClickAdd = (IDUser) => {
-    alert(IDUser);
-
     props.dispatch({
       type: "SetDataUserSearchPush",
       data: IDUser,
@@ -80,7 +77,7 @@ function SharedFolder(props) {
         <button onClick={() => HandleClose()}></button>
       </div>
       <div className="wrapperMain">
-        <div className="wrapperSearchUser" >
+        <div className="wrapperSearchUser">
           <input
             className="formText"
             type="text"
@@ -88,8 +85,14 @@ function SharedFolder(props) {
             onChange={handleTextPassWord}
             value={UserName}
           />
-          <button className="btnSS" onClick={() => handleCheck()}> Search User</button>
-          <button className="btnSS" onClick={() => handleShare()}> Share</button>
+          <button className="btnSS" onClick={() => handleCheck()}>
+            {" "}
+            Search User
+          </button>
+          <button className="btnSS" onClick={() => handleShare()}>
+            {" "}
+            Share
+          </button>
         </div>
         <div className="wrapperBody" style={{ display: "inline-block" }}>
           <div className="wrapperUserInfor">
@@ -101,19 +104,22 @@ function SharedFolder(props) {
             </div>
             {props.DataUserSearch.map((e) => (
               <div className="wrapperShow" key={e.ID}>
-                <div className="wrapperid"><p>{e.ID}</p> </div>
-                <div className="wrappername"><p>{e.Name}</p> </div>
-                <div className="wrapperidroom"><p>{e.IDRoom}</p> </div>
+                <div className="wrapperid">
+                  <p>{e.ID}</p>{" "}
+                </div>
+                <div className="wrappername">
+                  <p>{e.Name}</p>{" "}
+                </div>
+                <div className="wrapperidroom">
+                  <p>{e.IDRoom}</p>{" "}
+                </div>
                 <button onClick={() => handleClickAdd(e.ID)}>Add</button>
               </div>
             ))}
           </div>
           <div className="wrapperUserInfor2">
             {props.DataUserSearchPush.map((e) => (
-              <div
-                className="wrapperShow2"
-                key={e}
-              >
+              <div className="wrapperShow2" key={e}>
                 <p>ID: {e}</p>
                 <button onClick={() => HandleDeleteData(e)}>Delete</button>
               </div>

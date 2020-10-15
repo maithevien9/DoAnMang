@@ -5,6 +5,8 @@ import checkPassWord from "../../../../RestAPI/Folder/CheckPassWord.js";
 import GetFolderAndFileFromFolder from "../../../../RestAPI/Folder/GetFolderAndFileFromFolder.js";
 import { connect } from "react-redux";
 import addFolder from "../../../../RestAPI/Folder/addFolder";
+import GetFolderFromRoom from "../../../../RestAPI/Folder/GetFolderFromRoom";
+import GetFileFolderFromFolder from "../../../../RestAPI/Folder/GetFolderAndFileFromFolder";
 AddFolder.propTypes = {
   handleCloseAddFolder: PropTypes.func,
 };
@@ -27,7 +29,6 @@ function AddFolder(props) {
     setPasswordFolder(e.target.value);
   }
   const HandleBtnSubmit = () => {
-    alert(NameFolder + "/" + PasswordFolder + "/" + checked);
     if (checked === true) {
       setPasswordFolder("");
     }
@@ -42,7 +43,7 @@ function AddFolder(props) {
 
     addFolder(
       NameFolder,
-      setPasswordFolder,
+      PasswordFolder,
       checked,
       props.IDRoom,
       props.DataUser.token,
@@ -53,7 +54,44 @@ function AddFolder(props) {
         var data = JSON.parse(JSON.stringify(json));
         console.log(data);
         if (data.dataString === "THANH_CONG") {
-          alert("THANH_CONG");
+          alert("Success");
+          if (IDFolderAdd === null) {
+            GetFolderFromRoom(props.IDRoom)
+              .then((json) => {
+                var DataFolderRoom = JSON.parse(JSON.stringify(json));
+
+                props.dispatch({
+                  type: "SetDataFolder",
+                  data: DataFolderRoom.data,
+                });
+                props.dispatch({
+                  type: "SetDataFile",
+                  dataFile: [],
+                });
+              })
+              .catch((error) => {
+                console.error(error + "fail");
+              });
+          } else {
+            GetFileFolderFromFolder(IDFolderAdd)
+              .then((json) => {
+                var DataFolderRoom = JSON.parse(JSON.stringify(json));
+
+                props.dispatch({
+                  type: "SetDataFolder",
+                  data: DataFolderRoom.data,
+                });
+                props.dispatch({
+                  type: "SetDataFile",
+                  dataFile: [],
+                });
+              })
+              .catch((error) => {
+                console.error(error + "fail");
+              });
+          }
+
+          handleCloseAddFolder();
         } else {
           alert("Login fail");
         }
@@ -64,8 +102,7 @@ function AddFolder(props) {
   };
   return (
     <div className="wrapperAddFolder" style={styles.wrapperAddFolder}>
-      <div className="wrapperLeft">
-      </div>
+      <div className="wrapperLeft"></div>
       <div className="wrapperRight">
         <div className="wrapperHeader">
           <h2>Add Folder</h2>
@@ -97,7 +134,7 @@ function AddFolder(props) {
                 className="formTextInput"
                 type="text"
                 name="name"
-                disabled={checked}
+                disabled={!checked}
                 onChange={handleTextPassWordFolder}
                 value={PasswordFolder}
               />
@@ -111,7 +148,7 @@ function AddFolder(props) {
               </div>
             </div>
 
-            <div >
+            <div>
               <div
                 className="btnSubmit"
                 onClick={() => {
@@ -119,7 +156,7 @@ function AddFolder(props) {
                 }}
               >
                 Submit
-          </div>
+              </div>
             </div>
           </div>
         </div>

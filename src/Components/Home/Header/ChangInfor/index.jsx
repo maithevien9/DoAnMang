@@ -50,7 +50,7 @@ function UpdateForm(props) {
         var Data = JSON.parse(JSON.stringify(json));
         console.log(Data);
         if (Data.dataString === "THANH_CONG") {
-          alert("THANH_CONG");
+          alert("Success");
           var dataSend = [
             { Name: valueName, Phone: valuePhone, Address: valueAddress },
           ];
@@ -69,8 +69,7 @@ function UpdateForm(props) {
   };
   return (
     <form className="wrapperupdate" style={styles.wrapperupdate}>
-      <div className="wrapperLeft">
-      </div>
+      <div className="wrapperLeft"></div>
       <div className="wrapperRight">
         <div className="wrapperHeader">
           <h1>Change User Information</h1>
@@ -78,7 +77,6 @@ function UpdateForm(props) {
         </div>
         <div className="wrapperbody">
           <div className="center" style={styles.center}>
-
             <label>Name:</label>
             <input
               className="Name"
@@ -90,7 +88,6 @@ function UpdateForm(props) {
               value={valueName}
             ></input>
 
-
             <label>Phone Number:</label>
             <input
               className="Phone"
@@ -101,7 +98,6 @@ function UpdateForm(props) {
               onChange={handleTextPhone}
               value={valuePhone}
             ></input>
-
 
             <label>Address:</label>
             <input
@@ -120,7 +116,7 @@ function UpdateForm(props) {
                 onClick={() => HandleSubmitChangeInfor()}
               >
                 SUBMIT
-          </div>
+              </div>
             </div>
           </div>
         </div>
@@ -133,13 +129,11 @@ var styles = {
     height: "100%",
     width: "100%",
     //justifyContent: "spaceAround",
-
   },
   center: {
     height: "100%",
     width: "70%",
   },
-
 };
 
 function mapStateToProps(state) {

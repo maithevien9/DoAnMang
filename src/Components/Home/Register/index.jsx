@@ -31,7 +31,6 @@ function Register(props) {
     }
   };
   const HandleRegister = async () => {
-    alert(user + " / " + password + " / " + room);
     var DataRegisterUser = [];
     register(user, password, room)
       .then((json) => {
@@ -61,8 +60,7 @@ function Register(props) {
   }
   return (
     <div className="wrapperRegister" style={{ height: "100%", width: "100%" }}>
-      <div className="wrapperLeft">
-      </div>
+      <div className="wrapperLeft"></div>
       <div className="wrapperRight">
         <div className="wrapperHeader">
           <h2>Register</h2>
@@ -71,28 +69,14 @@ function Register(props) {
         <div className="wrapperMain">
           <div className="center" style={{ height: "100%", width: "70%" }}>
             <label>Username:</label>
-            <input
-              type="text"
-              onChange={handleTextUser}
-              value={user}
-            />
+            <input type="text" onChange={handleTextUser} value={user} />
             <label>Password:</label>
-            <input
-              type="password"
-
-              value={password}
-              onChange={handleTextPass}
-            />
+            <input type="password" value={password} onChange={handleTextPass} />
             <label>Room:</label>
-            <input
-              type="text"
-
-              value={room}
-              onChange={handleTextRoom}
-            />
+            <input type="text" value={room} onChange={handleTextRoom} />
             <button className="registerbtn" onClick={HandleRegister}>
               Register
-          </button>
+            </button>
           </div>
         </div>
       </div>

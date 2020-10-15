@@ -97,7 +97,9 @@ function Authenication(props) {
 
   return (
     <div className="wrapper1">
-      <h3 className="header" style={styles.header}>Learning Resource Management System</h3>
+      <h3 className="header" style={styles.header}>
+        Learning Resource Management System
+      </h3>
       <div style={styles.wrapperLeft}></div>
 
       <div className="wrapper2" style={styles.wrapper2}>

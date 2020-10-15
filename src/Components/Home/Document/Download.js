@@ -3,7 +3,6 @@ const openInNewTab = (url) => {
   if (newWindow) newWindow.opener = null;
 };
 export default async function HandleDownLoadFile(value) {
-  alert(value);
   //   GetFolderFromRoom(value).catch((error) => {
   //     console.error(error + "fail");
   //   });

@@ -179,7 +179,6 @@ function Document(props) {
     //   });
   };
   const HandleBack = (value) => {
-    alert(value[0].id);
     props.dispatch({
       type: "Setback",
       IDFolder: value[0].id,
@@ -273,8 +272,6 @@ function Document(props) {
     setModalIsOpen3(false);
   };
   const HandleSendChangPass = () => {
-    alert(valuePassWord);
-
     ChangePassWord(IDFolderValue, valuePassWord, props.DataUser.token)
       .then((json) => {
         var dataCheck = JSON.parse(JSON.stringify(json));

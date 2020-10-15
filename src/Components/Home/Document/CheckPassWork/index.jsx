@@ -21,7 +21,6 @@ function CheckPassWork(props) {
     setPasswordFolder(e.target.value);
   }
   const handleCheck = () => {
-    alert(passwordFolder);
     checkPassWord(props.IDFolder, passwordFolder)
       .then((json) => {
         var Data = JSON.parse(JSON.stringify(json));
@@ -61,7 +60,9 @@ function CheckPassWork(props) {
         <button onClick={() => HandleClose()}></button>
       </div>
       <div className="wrapperMain">
-        <div><label>Check Password:</label></div>
+        <div>
+          <label>Check Password:</label>
+        </div>
         <div>
           <input
             className="formText"
@@ -79,7 +80,7 @@ function CheckPassWork(props) {
       >
         Submit
       </div>
-    </div >
+    </div>
   );
 }
 
