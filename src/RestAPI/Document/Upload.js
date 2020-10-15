@@ -10,7 +10,7 @@ const Upload = async (formdata) => {
   };
 
   return await fetch(
-    "http://192.168.137.64:8000/upload/",
+    "http://localhost:8000/upload/",
     requestOptions
   ).then((response) => response.json());
 };

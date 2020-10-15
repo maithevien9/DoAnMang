@@ -18,6 +18,8 @@ import DeleteFolder from "../../../RestAPI/Folder/DeleteFolder";
 import DeleteDoc from "../../../RestAPI/Document/DeleteDoc";
 import SharedDocument from "./SharedDocument/index.jsx";
 import MyDocument from "../../../RestAPI/User/MyDocument";
+import Popover from "@material-ui/core/Popover";
+
 Document.propTypes = {};
 
 function Document(props) {
@@ -71,6 +73,9 @@ function Document(props) {
     //     console.error(error + "fail");
     //   });
   }, []);
+
+
+
 
   const HandleGetFolderFromRoom = () => {
     props.dispatch({
@@ -352,164 +357,195 @@ function Document(props) {
   };
   //
   return (
-    <div>
-      <Scrollbars style={styles.wrapperDocument}>
-        {/* <button onClick={HandleGetFolderFromRoom}>Room</button> */}
-        <button onClick={() => HandleBack(props.DataBack)}>BACK</button>
-        <div className="wrapperRooms">
-          <div className="wrapperHeader">
-            <div className="wrapperNameFolder">
-              <p>Name</p>
-            </div>
-            <div className="wrapperdiv">By User</div>
-            <div className="wrapperOwner">
-              <p>By ID</p>
-            </div>
-            <div className="wrapperTime">
-              <p> Last Modified</p>
-            </div>
+    <div className="wrp" style={styles.wrapperDocument}>
+      <button onClick={() => HandleBack(props.DataBack)}></button>
+      <div className="wrapperRooms">
+        <div className="wrapperHeader">
+          <div className="wrapperNameFolder">
+            <p>Name</p>
+          </div>
+          <div className="wrapperdiv">By User</div>
+          <div className="wrapperOwner">
+            <p>By ID</p>
+          </div>
+          <div className="wrapperTime">
+            <p> Last Modified</p>
           </div>
 
-          {props.DataFolderRoom.map((e) => (
-            <div
-              className="wrapperFolder"
-              key={e.ID}
-              onDoubleClick={() =>
-                handleClickFolder(e.ID, e.isPassWord, e.level)
-              }
-              onContextMenu={() => handleRightClickFolder(e.IDuser, e.ID)}
-            >
-              <div className="wrapperNameFolder">
-                <img className="wrapperImage" src={Folder} alt="user" />
-                <p>{e.Name}</p>
-              </div>
-              <div className="wrapperMenu">
-                <Menu
-                  // id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={() => HandleChangeName(e.ID)}>
-                    Change Name
-                  </MenuItem>
-                  <MenuItem onClick={() => handleClickChangPass(e.ID)}>
-                    Change PassWord
-                  </MenuItem>
-                  <MenuItem onClick={() => HandleClickSharedFolder()}>
-                    Share
-                  </MenuItem>
-                  <MenuItem onClick={() => handleDeletefolder()}>
-                    Delete
-                  </MenuItem>
-                </Menu>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl3}
-                  keepMounted
-                  open={Boolean(anchorEl3)}
-                  onClose={handleClose}
-                >
-                  <MenuItem>
-                    <input
-                      style={{ marginRight: 10 }}
-                      type="text"
-                      onChange={handleTextNameFolder}
-                      value={valueName}
-                    />
-                  </MenuItem>
-                  <MenuItem onClick={() => HandleChangeNameSend(e.ID)}>
-                    Change Name Folder
-                  </MenuItem>
-                  {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
-                </Menu>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl4}
-                  keepMounted
-                  open={Boolean(anchorEl4)}
-                  onClose={handleClose}
-                >
-                  <MenuItem>
-                    <input
-                      style={{ marginRight: 10 }}
-                      type="text"
-                      onChange={handleTextPassWord}
-                      value={valuePassWord}
-                    />
-                  </MenuItem>
-                  <MenuItem onClick={() => HandleSendChangPass()}>
-                    Change PassWord
-                  </MenuItem>
-                  {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
-                </Menu>
-              </div>
-              <div className="wrapperdiv">{e.name}</div>
-              <div className="wrapperOwner">
-                <p>{e.IDuser}</p>
-              </div>
-              <div className="wrapperTime">
-                <p>{e.SendTime}</p>
-              </div>
+        </div>
+
+        {props.DataFolderRoom.map((e) => (
+          <div
+            className="wrapperFolder"
+            key={e.ID}
+            onDoubleClick={() =>
+              handleClickFolder(e.ID, e.isPassWord, e.level)
+            }
+            onContextMenu={() => handleRightClickFolder(e.IDuser, e.ID)}
+          >
+            <div className="wrapperNameFolder">
+              <img className="wrapperImage" src={Folder} alt="user" />
+              <p>{e.Name}</p>
             </div>
-          ))}
+            <div className="wrapperMenu">
+              <Popover
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: 120, left: 400 }}
+                anchorOrigin={{
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={() => HandleChangeName(e.ID)}>
+                  <div className="styleMenuItem">
+                    Change Name
+                </div>
+                </MenuItem>
+                <MenuItem onClick={() => handleClickChangPass(e.ID)}>
+                  <div className="styleMenuItem">
+                    Change Password
+                </div>
+                </MenuItem>
+                <MenuItem onClick={() => HandleClickSharedFolder()}>
+                  <div className="styleMenuItem">
+                    Share
+                </div>
+                </MenuItem>
+                <MenuItem onClick={() => handleDeletefolder()}>
+                  <div className="styleMenuItem">
+                    Delete
+                </div>
+                </MenuItem>
+              </Popover>
+              <Popover
+                id="simple-menu"
+                anchorEl={anchorEl3}
+                keepMounted
+                open={Boolean(anchorEl3)}
+                onClose={handleClose}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: 120, left: 400 }}
+                anchorOrigin={{
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem style={{ height: 50, width: 350 }}>
+                  <input
+                    style={{ fontSize: 26, marginRight: 10 }}
+                    type="text"
+                    onChange={handleTextNameFolder}
+                    value={valueName}
+                  />
+                </MenuItem>
+                <MenuItem style={{ height: 50, width: 350 }} onClick={() => HandleChangeNameSend(e.ID)}>
+                  <div className="styleMenuItem">
+                    Change Name Folder
+                </div>
+                </MenuItem>
+              </Popover>
+              <Popover
+                id="simple-menu"
+                anchorEl={anchorEl4}
+                keepMounted
+                open={Boolean(anchorEl4)}
+                onClose={handleClose}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: 120, left: 400 }}
+                anchorOrigin={{
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem style={{ height: 50, width: 350 }}>
+                  <input
+                    style={{ fontSize: 26, marginRight: 10 }}
+                    type="text"
+                    onChange={handleTextPassWord}
+                    value={valuePassWord}
+                  />
+                </MenuItem>
+                <MenuItem style={{ height: 50, width: 350 }} onClick={() => HandleSendChangPass()}>
+                  <div className="styleMenuItem">
+                    Change Password
+                </div>
+                </MenuItem>
+              </Popover>
+            </div>
+            <div className="wrapperdiv">{e.name}</div>
+            <div className="wrapperOwner">
+              <p>{e.IDuser}</p>
+            </div>
+            <div className="wrapperTime">
+              <p>{e.SendTime}</p>
+            </div>
+          </div>
+        ))}
 
-          <div className="wrapperHeaderFile"></div>
+        <div className="wrapperHeaderFile"></div>
 
-          {props.FileFromFolder.map((e) => (
-            <div
-              className="wrapperFile"
-              key={e.ID}
-              onContextMenu={() => handleRightClickFile(e.IDuser, e.ID)}
-              onDoubleClick={() => {
-                HandleDownLoadFile(e.ID);
+        {props.FileFromFolder.map((e) => (
+          <div
+            className="wrapperFile"
+            key={e.ID}
+            onContextMenu={() => handleRightClickFile(e.IDuser, e.ID)}
+            onDoubleClick={() => {
+              HandleDownLoadFile(e.ID);
+            }}
+          >
+            <div className="wrapperNameFolder">
+              <p>{e.Name}</p>
+            </div>
+            <div className="wrapperdiv">{e.name}</div>
+            <Popover
+              // id="simple-menu"
+              anchorEl={anchorEl2}
+              keepMounted
+              open={Boolean(anchorEl2)}
+              onClose={handleClose}
+              anchorReference="anchorPosition"
+              anchorPosition={{ top: 120, left: 400 }}
+              anchorOrigin={{
+                horizontal: "right",
               }}
             >
-              <div className="wrapperNameFolder">
-                <p>{e.Name}</p>
-              </div>
-              <div className="wrapperdiv">{e.name}</div>
-              <Menu
-                // id="simple-menu"
-                anchorEl={anchorEl2}
-                keepMounted
-                open={Boolean(anchorEl2)}
-                onClose={handleClose}
-              >
-                {/* <MenuItem>Change Name</MenuItem> */}
-                <MenuItem onClick={() => HandleClickSharedDocument()}>
+              <MenuItem style={{ height: 50, width: 150 }} onClick={() => HandleClickSharedDocument()}>
+                <div className="styleMenuItem">
                   Share
-                </MenuItem>
-                <MenuItem onClick={() => HandleDeleteDoc(e.ID)}>
+                </div>
+
+              </MenuItem>
+              <MenuItem style={{ height: 50, width: 150 }} onClick={() => HandleDeleteDoc(e.ID)}>
+                <div className="styleMenuItem">
                   Delete
-                </MenuItem>
-              </Menu>
-              <div className="wrapperOwner">
-                <p>{e.IDuser}</p>
-              </div>
-              <div className="wrapperTime">
-                <p>{e.SendTime}</p>
-              </div>
+                </div>
+              </MenuItem>
+            </Popover>
+            <div className="wrapperOwner">
+              <p>{e.IDuser}</p>
             </div>
-          ))}
-        </div>
-        <Modal isOpen={modalIsOpen} className="Modal">
-          <CheckPassWork handleCloseCheckPass={handleCloseCheckPass} />
-        </Modal>
-        <Modal isOpen={modalIsOpen2} className="Modal">
-          <SharedFolder
-            handleCloseSharedFolder={handleCloseSharedFolder}
-            IDFolderValue={IDFolderValue}
-          />
-        </Modal>
-        <Modal isOpen={modalIsOpen3} className="Modal">
-          <SharedDocument
-            handleCloseSharedDocument={handleCloseSharedDocument}
-            IDDocValue={IDDocValue}
-          />
-        </Modal>
-      </Scrollbars>
+            <div className="wrapperTime">
+              <p>{e.SendTime}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Modal isOpen={modalIsOpen} className="Modal">
+        <CheckPassWork handleCloseCheckPass={handleCloseCheckPass} />
+      </Modal>
+      <Modal isOpen={modalIsOpen2} className="Modal2">
+        <SharedFolder
+          handleCloseSharedFolder={handleCloseSharedFolder}
+          IDFolderValue={IDFolderValue}
+        />
+      </Modal>
+      <Modal isOpen={modalIsOpen3} className="Modal2">
+        <SharedDocument
+          handleCloseSharedDocument={handleCloseSharedDocument}
+          IDDocValue={IDDocValue}
+        />
+      </Modal>
     </div>
   );
 }
@@ -517,7 +553,9 @@ var styles = {
   wrapperDocument: {
     width: 1700,
     height: 950,
-    backgroundColor: "#E8E8E8",
+    backgroundColor: "#E9E9E9",
+    borderRadius: 20,
+    marginLeft: 10,
   },
 };
 function mapStateToProps(state) {

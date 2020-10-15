@@ -1,5 +1,5 @@
 const sharedFolder = async (IDFolder, IDUser, Token) => {
-  var url = "http://192.168.137.64:8000/Shared/";
+  var url = "http://localhost:8000/Shared/";
   return await fetch(url, {
     method: "POST",
     headers: {

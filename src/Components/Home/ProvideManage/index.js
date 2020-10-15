@@ -52,76 +52,62 @@ function ProvideManage(props) {
   };
 
   return (
-    <div>
-      <div className="wrapper">
-        <div></div>
-        <div></div>
-        <div
-          className="wrapperClose"
-          onClick={() => {
-            HandleClose();
-          }}
-        >
-          <img
-            // style={styles.imageLogoUser}
-            src={close}
-            alt="user"
-          />
-        </div>
+    <div className="wrapperFull" style={{ display: "block", height: "100%", width: "100%" }}>
+      <div className="wrapperHeader">
+        <h2>Provide Manager Rights</h2>
+        <button onClick={() => HandleClose()}></button>
       </div>
-      <div className="wrapperFull">
-        <div className="wrapperProvide">
-          <div className="HeaderForm">
-            <p>ID</p>
-            <p>Name</p>
-            <p>Decentralization</p>
-            <p>Authorization</p>
-          </div>
-          {props.arrUser.map((e) => (
-            <div className="wrapperUser">
-              <div className="wrapperID">{e.ID}</div>
-              <div className="wrapperName">{e.Name}</div>
+      <div className="wrapperProvide">
+        <div className="HeaderForm">
+          <p>ID</p>
+          <p>Name</p>
+          <p>Decentralization</p>
+          <p>Authorization</p>
+        </div>
+        {props.arrUser.map((e) => (
+          <div className="wrapperUser">
+            <div className="wrapperID">{e.ID}</div>
+            <div className="wrapperName">{e.Name}</div>
 
-              <div className="wrapperDecentralization">
-                <p>{e.decentralization}</p>
-              </div>
-              <div className="wrapperAuthorization">
-                <div className="wrapperAuthorization2">
-                  <input
-                    type="radio"
-                    id="male"
-                    name="gender"
-                    value="male"
-                    onClick={() => {
-                      setValue(1);
-                    }}
-                  />
-                  <p>Student</p>
-                  <input
-                    className="wrapperBtn2"
-                    type="radio"
-                    id="female"
-                    name="gender"
-                    value="female"
-                    onClick={() => {
-                      setValue(2);
-                    }}
-                  />
-                  <p>Admin</p>
+            <div className="wrapperDecentralization">
+              <p>{e.decentralization}</p>
+            </div>
+            <div className="wrapperAuthorization">
+              <div className="wrapperAuthorization2">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  onClick={() => {
+                    setValue(1);
+                  }}
+                />
+                <p>Student</p>
+                <input
+                  className="wrapperBtn2"
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  onClick={() => {
+                    setValue(2);
+                  }}
+                />
+                <p>Admin</p>
 
-                  <p
-                    className="wrapperBtn3"
-                    onClick={() => {
-                      HandleSubmit(e.ID);
-                    }}
-                  >
-                    Submit
-                  </p>
-                </div>
+                <button
+                  className="wrapperBtn3"
+                  onClick={() => {
+                    HandleSubmit(e.ID);
+                  }}
+                >
+                  Submit
+                  </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -97,10 +97,10 @@ function Authenication(props) {
 
   return (
     <div className="wrapper1">
-      <h3 className="header" style={styles.header}></h3>
+      <h3 className="header" style={styles.header}>Learning Resource Management System</h3>
       <div style={styles.wrapperLeft}></div>
 
-      <div className="wrapper2" style={{ display: "inline-block" }}>
+      <div className="wrapper2" style={styles.wrapper2}>
         <div className="wrapperInput">
           <p style={styles.textLogin}>Username:</p>
           <input
@@ -142,30 +142,37 @@ function Authenication(props) {
 var styles = {
   btnLogin: {
     color: "black",
-    fontSize: 18,
+    fontSize: 22,
     fontFamily: "Cochin",
   },
   textLogin: {
     color: "black",
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: "Cochin",
   },
   header: {
-    paddingLeft: 450,
+    textAlign: "center",
     color: "white",
     fontSize: 50,
     fontFamily: "Cochin",
   },
   wrapperLeft: {
     backgroundImage: `url(${br})`,
-    paddingTop: 521,
-    height: 47,
-    width: 800,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    height: "50%",
+    width: 900,
     display: "inline-block",
+    backgroundColor: "white",
+  },
+  wrapper2: {
+    display: "inline-block",
+    height: "50%",
+    width: 400,
   },
   btnWrapper: {
     paddingLeft: 50,
-    paddingTop: 100,
+    paddingTop: 50,
   },
 };
 

@@ -60,65 +60,40 @@ function Register(props) {
     setRoom(e.target.value);
   }
   return (
-    <div>
-      <div className="wrapper">
-        <div></div>
-        <div></div>
-        <div
-          className="wrapperClose"
-          onClick={() => {
-            HandleClose();
-          }}
-        >
-          <img
-            // style={styles.imageLogoUser}
-            src={close}
-            alt="user"
-          />
-        </div>
+    <div className="wrapperRegister" style={{ height: "100%", width: "100%" }}>
+      <div className="wrapperLeft">
       </div>
-      <div className="wrapperFull">
-        <h1>Register</h1>
-
-        <div className="center">
-          <div>
-            <div className="wrapperForm">
-              <b>Username</b>
-            </div>
+      <div className="wrapperRight">
+        <div className="wrapperHeader">
+          <h2>Register</h2>
+          <button onClick={() => HandleClose()}></button>
+        </div>
+        <div className="wrapperMain">
+          <div className="center" style={{ height: "100%", width: "70%" }}>
+            <label>Username:</label>
             <input
               type="text"
-              placeholder="Enter Username"
               onChange={handleTextUser}
               value={user}
             />
-          </div>
-          <div className="wrapperForm">
-            <div>
-              <b>Password</b>
-            </div>
+            <label>Password:</label>
             <input
               type="password"
-              placeholder="Enter Password"
+
               value={password}
               onChange={handleTextPass}
             />
-          </div>
-          <div className="wrapperForm">
-            <div>
-              <b>Room</b>
-            </div>
+            <label>Room:</label>
             <input
               type="text"
-              placeholder="Enter Room"
+
               value={room}
               onChange={handleTextRoom}
             />
-          </div>
-          <hr />
-
-          <button className="registerbtn" onClick={HandleRegister}>
-            Register
+            <button className="registerbtn" onClick={HandleRegister}>
+              Register
           </button>
+          </div>
         </div>
       </div>
     </div>

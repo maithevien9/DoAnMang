@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
+import BG from "../../../../public/image/bg2.jpg";
 import ChangInforUserAPI from "../../../../RestAPI/User/ChangInforUserAPI.js";
 UpdateForm.propTypes = {
   handleCloseFormInfor: PropTypes.func,
@@ -67,67 +68,60 @@ function UpdateForm(props) {
       });
   };
   return (
-    <form class="wrapperupdate" style={styles.wrapperupdate}>
-      <div className="wrapperHeader">
-        <h1>Change User Information</h1>
-        <p onClick={() => handleClose()}>Close</p>
+    <form className="wrapperupdate" style={styles.wrapperupdate}>
+      <div className="wrapperLeft">
       </div>
-      <div class="center">
-        <div class="item">
-          <label>Name:</label>
-          <input
-            class="Name"
-            name="name"
-            ref={register({ required: true })}
-            type="text"
-            placeholder={props.DataInforUser[0].Name}
-            onChange={handleTextName}
-            value={valueName}
-          ></input>
+      <div className="wrapperRight">
+        <div className="wrapperHeader">
+          <h1>Change User Information</h1>
+          <button onClick={() => handleClose()}></button>
         </div>
-        <div class="item">
-          <label>Phone Number:</label>
-          <input
-            class="Phone"
-            name="phone"
-            ref={register({ required: true })}
-            type="text"
-            placeholder={props.DataInforUser[0].Phone}
-            //placeholder="Insert..."
-            onChange={handleTextPhone}
-            value={valuePhone}
-          ></input>
-        </div>
-        <div class="item">
-          <label>Address:</label>
-          <input
-            class="Address"
-            name="address"
-            ref={register({ required: true })}
-            type="text"
-            placeholder={props.DataInforUser[0].Address}
-            onChange={handleTextAddress}
-            value={valueAddress}
-          ></input>
-        </div>
-        {/* <div class="item">
-          <label>Password:</label>
-          <input
-            class="Password"
-            name="password"
-            ref={register({ required: true })}
-            type="password"
-            placeholder="Insert..."
-          ></input>
-        </div> */}
-        <div>
-          <div
-            // type="submit"
-            // onSubmit={handleSubmit(onSubmit)}
-            class="btnSubmit"
-            onClick={() => HandleSubmitChangeInfor()}
-          >
-            SUBMIT
+        <div className="wrapperbody">
+          <div className="center" style={styles.center}>
+
+            <label>Name:</label>
+            <input
+              className="Name"
+              name="name"
+              ref={register({ required: true })}
+              type="text"
+              placeholder={props.DataInforUser[0].Name}
+              onChange={handleTextName}
+              value={valueName}
+            ></input>
+
+
+            <label>Phone Number:</label>
+            <input
+              className="Phone"
+              name="phone"
+              ref={register({ required: true })}
+              type="text"
+              placeholder={props.DataInforUser[0].Phone}
+              onChange={handleTextPhone}
+              value={valuePhone}
+            ></input>
+
+
+            <label>Address:</label>
+            <input
+              className="Address"
+              name="address"
+              ref={register({ required: true })}
+              type="text"
+              placeholder={props.DataInforUser[0].Address}
+              onChange={handleTextAddress}
+              value={valueAddress}
+            ></input>
+
+            <div>
+              <div
+                className="btnSubmit"
+                onClick={() => HandleSubmitChangeInfor()}
+              >
+                SUBMIT
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,11 +130,16 @@ function UpdateForm(props) {
 }
 var styles = {
   wrapperupdate: {
-    height: 950,
+    height: "100%",
     width: "100%",
-    justifyContent: "spaceAround",
-    borderRadius: 20,
+    //justifyContent: "spaceAround",
+
   },
+  center: {
+    height: "100%",
+    width: "70%",
+  },
+
 };
 
 function mapStateToProps(state) {

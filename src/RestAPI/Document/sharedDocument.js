@@ -1,5 +1,5 @@
 const sharedDocument = async (IDDoc, IDUser, Token) => {
-  var url = "http://192.168.137.64:8000/SharedDocument/";
+  var url = "http://localhost:8000/SharedDocument/";
   return await fetch(url, {
     method: "POST",
     headers: {

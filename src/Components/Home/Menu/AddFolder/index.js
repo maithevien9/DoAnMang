@@ -63,80 +63,76 @@ function AddFolder(props) {
       });
   };
   return (
-    <div className="wrapperForm">
-      <div onClick={HandleClose} className="wrapperClose">
-        Close
+    <div className="wrapperAddFolder" style={styles.wrapperAddFolder}>
+      <div className="wrapperLeft">
       </div>
-      <div className="wrapperMain" style={{ marginBottom: 20, marginTop: 50 }}>
-        ADD Folder
-      </div>
-      <div className="wrapperMainAdd">
-        <div className="WrapperOneForm">
-          <div className="WrapperDivName">
-            <p>Folder Name</p>
-          </div>
-          <div className="WrapperFormWrapperCheck">
-            <input
-              className="formTextInput"
-              type="text"
-              name="name"
-              onChange={handleTextNameFolder}
-              value={NameFolder}
-            />
-            <div className="WrapperCheck">
-              <div className="WrapperCheck"> </div>
-            </div>
-          </div>
+      <div className="wrapperRight">
+        <div className="wrapperHeader">
+          <h2>Add Folder</h2>
+          <button onClick={() => HandleClose()}></button>
         </div>
-        <br />
-        <div className="WrapperOneForm">
-          <div className="WrapperDivName">
-            <p>Folder PassWord</p>
-          </div>
-
-          <div className="WrapperFormWrapperCheck">
-            <input
-              className="formTextInput"
-              type="text"
-              name="name"
-              disabled={checked}
-              onChange={handleTextPassWordFolder}
-              value={PasswordFolder}
-            />
-            <div className="WrapperCheck">
+        <div className="wrapperMain ">
+          <div className="WrapperOneForm">
+            <div className="WrapperDivName">
+              <label>Folder Name:</label>
+            </div>
+            <div className="WrapperFormWrapperCheck">
               <input
-                className="wrapperCheck"
-                type="checkbox"
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                className="formTextInput"
+                type="text"
+                name="name"
+                onChange={handleTextNameFolder}
+                value={NameFolder}
               />
+              <div className="WrapperCheck">
+                <div className="WrapperCheck"> </div>
+              </div>
+            </div>
+            <div className="WrapperDivName">
+              <label>Folder Password:</label>
+            </div>
+
+            <div className="WrapperFormWrapperCheck">
+              <input
+                className="formTextInput"
+                type="text"
+                name="name"
+                disabled={checked}
+                onChange={handleTextPassWordFolder}
+                value={PasswordFolder}
+              />
+              <div className="WrapperCheck">
+                <input
+                  className="wrapperCheck"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                />
+              </div>
+            </div>
+
+            <div >
+              <div
+                className="btnSubmit"
+                onClick={() => {
+                  HandleBtnSubmit();
+                }}
+              >
+                Submit
+          </div>
             </div>
           </div>
         </div>
-        <br />
-        <div className="WrapperOneFormSubmit">
-          <div
-            className="wrapperBtn"
-            onClick={() => {
-              HandleBtnSubmit();
-            }}
-          >
-            Submit
-          </div>
-        </div>
-
-        {/* <input
-          className="formText"
-          type="text"
-          name="name"
-          onChange={handleTextPassWord}
-          value={passwordFolder}
-        /> */}
       </div>
     </div>
   );
 }
-
+const styles = {
+  wrapperAddFolder: {
+    height: "100%",
+    width: "100%",
+  },
+};
 function mapStateToProps(state) {
   return {
     DataUser: state.DataUser,

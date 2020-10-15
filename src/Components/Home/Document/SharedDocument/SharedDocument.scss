@@ -3,14 +3,10 @@
     width: 100%;
     background-color: beige;
 }
-.wrapperClose {
-    padding-left: 90%;
-}
 .wrapperMain {
     justify-content: center;
     display: flex;
     align-items: center;
-    // justify-content: space-around;
 }
 .formText {
     height: 50px;
@@ -18,11 +14,6 @@
     margin-right: 20px;
     border-radius: 15px;
 }
-
-// .wrapperMain2 {
-//     justify-content: center;
-//     display: inline;
-// }
 .wrapperMainFull {
     display: flex;
     align-items: center;
@@ -52,6 +43,7 @@
     border-radius: 15px;
     background-color: white;
     border: 2px solid black;
+    overflow-y: scroll;
 }
 .wrapperUser {
     height: 500px;

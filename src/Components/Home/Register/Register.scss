@@ -1,42 +1,87 @@
-.wrapperClose {
-  height: 50px;
-  width: 70px;
-
+.wrapperRegister {
+  background-color: white;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.wrapper {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  background-color: white;
-}
-.center {
-  padding-top: 150px;
-  background-color: white;
-  width: 630px;
-  margin-left: 30%;
-}
-.registerbtn {
-  font-size: 20px;
-  background-color: rgb(192, 167, 135);
-  color: white;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  cursor: pointer;
-  width: 430px;
-  opacity: 0.9;
-}
-.wrapperFull {
-  height: 900px;
-  background-color: beige;
-  display: flex;
-  justify-content: center;
-}
-.wrapperForm {
-  padding-top: 15px;
-
-  // margin-bottom: 20px;
+  background-image: url("../../../public/image/bgregister.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  .wrapperLeft {
+    width: 40%;
+    height: 100%;
+  }
+  .wrapperRight {
+    width: 60%;
+    height: 100%;
+    .wrapperHeader {
+      height: 12%;
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        font-family: "cochin";
+        font-size: 50px;
+        color: gray;
+        border: none;
+        margin: 0;
+        padding-left: 40%;
+      }
+      button {
+        background-color: #dbdada;
+        border: none;
+        cursor: pointer;
+        width: 5%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-y: center;
+        background-image: url("../../../public/image/close.png");
+        &:hover {
+          background-color: rgb(255, 38, 38);
+          transition: 0.3s;
+        }
+      }
+    }
+    .wrapperMain {
+      .center {
+        padding: 0;
+        padding-top: 4%;
+        padding-left: 10%;
+        label {
+          margin: 3px;
+          display: block;
+          font-size: 26px;
+          font-family: "cochin";
+          padding-bottom: 5px;
+          color: rgb(59, 59, 59);
+        }
+        input {
+          font-size: 30px;
+          border: 1px black solid;
+          height: 40px;
+          width: 80%;
+          margin: 0;
+          padding-left: 10px;
+          background: white;
+          border: 2px solid rgba(0, 0, 0, 0.74);
+          border-radius: 5px;
+          outline: none;
+        }
+        .registerbtn {
+          background-color: #661af3;
+          border-radius: 6px;
+          display: inline-block;
+          cursor: pointer;
+          color: #ffffff;
+          font-family: "cochin";
+          font-size: 30px;
+          font-weight: bold;
+          padding: 10px 50px;
+          margin-top: 25px;
+          margin-left: 20%;
+          &:hover {
+            background-color: #460ab6;
+          }
+        }
+      }
+    }
+  }
 }

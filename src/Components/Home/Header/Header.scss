@@ -1,13 +1,15 @@
 .textInput {
   display: inline-block;
+  &:focus {
+    border-color: rgb(250, 250, 250);
+    box-shadow: 0 0 8px 0 rgb(17, 50, 116);
+  }
 }
 .wrapper {
   align-items: center;
   justify-content: space-around;
-  background-color: #a4d3ee;
+  background-image: url("../../../public/image/a.jpg");
 }
-// .wrapper {
-// }
 .textInput {
   width: 100%;
   font-size: 16px;
@@ -19,10 +21,6 @@
   background-size: 25px;
 }
 
-.textInput:focus {
-  border-color: rgb(250, 250, 250);
-  box-shadow: 0 0 8px 0 rgb(17, 50, 116);
-}
 .btnUser {
   margin: 0;
   width: 80px;
@@ -42,6 +40,13 @@
   justify-content: flex-end;
   margin-left: 10%;
 }
-.wrapperFormInfor{
+.wrapperFormInfor {
+  font-family: "cochin";
+  font-size: 20px;
   display: flex;
+  font-weight: bold;
+}
+.styleMenuItem {
+  font-family: "cochin";
+  font-size: 20px;
 }

@@ -1,5 +1,5 @@
 const DeleteFolder = async (IDFolder, token) => {
-  var url = `http://192.168.137.64:8000/DeleteFolder/${IDFolder}`;
+  var url = `http://localhost:8000/DeleteFolder/${IDFolder}`;
 
   return await fetch(url, {
     method: "DELETE",
