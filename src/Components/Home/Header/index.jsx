@@ -218,7 +218,7 @@ function Header(props) {
   const HandleProfile = () => {
     setModalIsOpen(true);
   };
-  
+
   function handleTextSearch(e) {
     setValueSearch(e.target.value);
   }
@@ -265,10 +265,27 @@ function Header(props) {
   function handleTextSearch(e) {
     setValueSearch(e.target.value);
   }
+  const handleReset = () => {
+    alert("Reset");
+    props.dispatch({
+      type: "SetDataFolder",
+      data: [],
+    });
 
+    props.dispatch({
+      type: "SetDataFile",
+      dataFile: [],
+    });
+  };
   return (
     <div style={styles.wrapper} class="wrapper">
-      <div class="home" style={{ marginLeft: 70 }}>
+      <div
+        class="home"
+        style={{ marginLeft: 70 }}
+        onClick={() => {
+          handleReset();
+        }}
+      >
         <img style={styles.imageLogo} src={Logo} alt="Logo" class="image" />
       </div>
 

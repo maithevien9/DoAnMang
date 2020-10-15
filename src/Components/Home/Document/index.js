@@ -74,9 +74,6 @@ function Document(props) {
     //   });
   }, []);
 
-
-
-
   const HandleGetFolderFromRoom = () => {
     props.dispatch({
       type: "ResetLevel",
@@ -88,34 +85,43 @@ function Document(props) {
       type: "Reset",
     });
     console.log("Reset");
-    if (props.IDRoom === 1) {
-      props.dispatch({
-        type: "SetDataFolder",
-        data: props.DataFolderTemp,
-      });
+    props.dispatch({
+      type: "SetDataFolder",
+      data: props.DataFolderTemp,
+    });
 
-      props.dispatch({
-        type: "SetDataFile",
-        dataFile: props.DataFileTemp,
-      });
-    } else {
-      GetFolderFromRoom(props.IDRoom)
-        .then((json) => {
-          DataFolderRoom = JSON.parse(JSON.stringify(json));
+    props.dispatch({
+      type: "SetDataFile",
+      dataFile: props.DataFileTemp,
+    });
+    // if (props.IDRoom === 1) {
+    //   props.dispatch({
+    //     type: "SetDataFolder",
+    //     data: props.DataFolderTemp,
+    //   });
 
-          props.dispatch({
-            type: "SetDataFolder",
-            data: DataFolderRoom.data,
-          });
-          props.dispatch({
-            type: "SetDataFile",
-            dataFile: [],
-          });
-        })
-        .catch((error) => {
-          console.error(error + "fail");
-        });
-    }
+    //   props.dispatch({
+    //     type: "SetDataFile",
+    //     dataFile: props.DataFileTemp,
+    //   });
+    // } else {
+    //   GetFolderFromRoom(props.IDRoom)
+    //     .then((json) => {
+    //       DataFolderRoom = JSON.parse(JSON.stringify(json));
+
+    //       props.dispatch({
+    //         type: "SetDataFolder",
+    //         data: DataFolderRoom.data,
+    //       });
+    //       props.dispatch({
+    //         type: "SetDataFile",
+    //         dataFile: [],
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.error(error + "fail");
+    //     });
+    // }
   };
   const handleClickFolder = (value, isPassWord, level) => {
     if (isPassWord === 1) {
@@ -371,16 +377,13 @@ function Document(props) {
           <div className="wrapperTime">
             <p> Last Modified</p>
           </div>
-
         </div>
 
         {props.DataFolderRoom.map((e) => (
           <div
             className="wrapperFolder"
             key={e.ID}
-            onDoubleClick={() =>
-              handleClickFolder(e.ID, e.isPassWord, e.level)
-            }
+            onDoubleClick={() => handleClickFolder(e.ID, e.isPassWord, e.level)}
             onContextMenu={() => handleRightClickFolder(e.IDuser, e.ID)}
           >
             <div className="wrapperNameFolder">
@@ -400,24 +403,16 @@ function Document(props) {
                 }}
               >
                 <MenuItem onClick={() => HandleChangeName(e.ID)}>
-                  <div className="styleMenuItem">
-                    Change Name
-                </div>
+                  <div className="styleMenuItem">Change Name</div>
                 </MenuItem>
                 <MenuItem onClick={() => handleClickChangPass(e.ID)}>
-                  <div className="styleMenuItem">
-                    Change Password
-                </div>
+                  <div className="styleMenuItem">Change Password</div>
                 </MenuItem>
                 <MenuItem onClick={() => HandleClickSharedFolder()}>
-                  <div className="styleMenuItem">
-                    Share
-                </div>
+                  <div className="styleMenuItem">Share</div>
                 </MenuItem>
                 <MenuItem onClick={() => handleDeletefolder()}>
-                  <div className="styleMenuItem">
-                    Delete
-                </div>
+                  <div className="styleMenuItem">Delete</div>
                 </MenuItem>
               </Popover>
               <Popover
@@ -440,10 +435,11 @@ function Document(props) {
                     value={valueName}
                   />
                 </MenuItem>
-                <MenuItem style={{ height: 50, width: 350 }} onClick={() => HandleChangeNameSend(e.ID)}>
-                  <div className="styleMenuItem">
-                    Change Name Folder
-                </div>
+                <MenuItem
+                  style={{ height: 50, width: 350 }}
+                  onClick={() => HandleChangeNameSend(e.ID)}
+                >
+                  <div className="styleMenuItem">Change Name Folder</div>
                 </MenuItem>
               </Popover>
               <Popover
@@ -466,10 +462,11 @@ function Document(props) {
                     value={valuePassWord}
                   />
                 </MenuItem>
-                <MenuItem style={{ height: 50, width: 350 }} onClick={() => HandleSendChangPass()}>
-                  <div className="styleMenuItem">
-                    Change Password
-                </div>
+                <MenuItem
+                  style={{ height: 50, width: 350 }}
+                  onClick={() => HandleSendChangPass()}
+                >
+                  <div className="styleMenuItem">Change Password</div>
                 </MenuItem>
               </Popover>
             </div>
@@ -510,16 +507,17 @@ function Document(props) {
                 horizontal: "right",
               }}
             >
-              <MenuItem style={{ height: 50, width: 150 }} onClick={() => HandleClickSharedDocument()}>
-                <div className="styleMenuItem">
-                  Share
-                </div>
-
+              <MenuItem
+                style={{ height: 50, width: 150 }}
+                onClick={() => HandleClickSharedDocument()}
+              >
+                <div className="styleMenuItem">Share</div>
               </MenuItem>
-              <MenuItem style={{ height: 50, width: 150 }} onClick={() => HandleDeleteDoc(e.ID)}>
-                <div className="styleMenuItem">
-                  Delete
-                </div>
+              <MenuItem
+                style={{ height: 50, width: 150 }}
+                onClick={() => HandleDeleteDoc(e.ID)}
+              >
+                <div className="styleMenuItem">Delete</div>
               </MenuItem>
             </Popover>
             <div className="wrapperOwner">

@@ -146,6 +146,16 @@ function TreeView(props) {
           type: "setLevel",
           data: 0,
         });
+
+        //temp
+        props.dispatch({
+          type: "DataFolderTemp",
+          data: DataFolderRoom.data,
+        });
+        props.dispatch({
+          type: "DataFileTemp",
+          data: [],
+        });
       })
       .catch((error) => {
         console.error(error + "fail");
@@ -237,8 +247,18 @@ function TreeView(props) {
           horizontal: "right",
         }}
       >
-        <MenuItem style={{ height: 50, fontSize: 26 }} onClick={() => HandleADDFolder()}>Add Folder</MenuItem>
-        <MenuItem style={{ height: 50, fontSize: 26 }} onClick={() => HandleAdd2()}>File Upload File</MenuItem>
+        <MenuItem
+          style={{ height: 50, fontSize: 26 }}
+          onClick={() => HandleADDFolder()}
+        >
+          Add Folder
+        </MenuItem>
+        <MenuItem
+          style={{ height: 50, fontSize: 26 }}
+          onClick={() => HandleAdd2()}
+        >
+          File Upload File
+        </MenuItem>
       </Popover>
       <Popover
         id="simple-menu"
@@ -272,7 +292,15 @@ function TreeView(props) {
           >
             <CircularProgress />
           </Fade>
-          <Button onClick={HandleAddFile} style={{ right: 0, fontSize: 35, width: "100%", fontFamily: "cochin" }}>
+          <Button
+            onClick={HandleAddFile}
+            style={{
+              right: 0,
+              fontSize: 35,
+              width: "100%",
+              fontFamily: "cochin",
+            }}
+          >
             {loading ? "Is Sending" : "Send"}
           </Button>
         </MenuItem>
@@ -510,7 +538,7 @@ function TreeView(props) {
       <Modal isOpen={modalIsOpen} className="Modal">
         <AddFolder
           handleCloseAddFolder={handleCloseAddFolder}
-        // IDDocValue={IDDocValue}
+          // IDDocValue={IDDocValue}
         />
       </Modal>
     </div>
