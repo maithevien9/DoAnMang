@@ -18,6 +18,7 @@ SharedFolder.Authenication = {
 function SharedFolder(props) {
   const { handleCloseSharedFolder, IDFolderValue } = props;
   const [UserName, setUserName] = useState("");
+
   const HandleClose = () => {
     handleCloseSharedFolder();
   };
@@ -65,11 +66,16 @@ function SharedFolder(props) {
       });
   };
   const HandleDeleteData = (ID) => {
+    // props.dispatch({
+    //   type: "ResestDataUser",
+    // });
     props.dispatch({
-      type: "ResestDataUser",
+      type: "deleteDataUser",
+      data: ID,
     });
   };
   var test = [1, 2, 3];
+
   return (
     <div className="wrapperShare">
       <div className="wrapperHeader">

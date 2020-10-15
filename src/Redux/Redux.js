@@ -66,8 +66,18 @@ const DataUserSearchReducer = (state = DataUserSearch, action) => {
   return state;
 };
 const DataUserSearchPushReducer = (state = DataUserSearchPush, action) => {
-  if (action.type === "SetDataUserSearchPush")
-    return [action.data].concat(state);
+  if (action.type === "SetDataUserSearchPush") {
+    var ID = action.data;
+    var temp = 0;
+    state.filter((e) => {
+      if (ID === e) {
+        temp = temp + 1;
+      }
+    });
+    if (temp == 0) {
+      return [action.data].concat(state);
+    }
+  }
   if (action.type === "ResestDataUser") return [];
   // if (action.type === "delete") {
   //   return state.map((e) => {
@@ -75,6 +85,17 @@ const DataUserSearchPushReducer = (state = DataUserSearchPush, action) => {
   //     console.log(e);
   //   });
   // }
+  if (action.type === "deleteDataUser") {
+    //alert(action.data);
+    return state.filter((e) => {
+      if (e !== action.data) {
+        // alert(e + "/OK");
+        return e;
+      } else {
+        // alert(e);
+      }
+    });
+  }
   return state;
 };
 

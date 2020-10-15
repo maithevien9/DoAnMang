@@ -67,7 +67,8 @@ function SharedDocument(props) {
   };
   const HandleDeleteData = (ID) => {
     props.dispatch({
-      type: "ResestDataUser",
+      type: "deleteDataUser",
+      data: ID,
     });
   };
   var test = [1, 2, 3];
