@@ -2,8 +2,7 @@
   height: 950px;
   width: 400px;
   display: "block";
-  // background-image: url("../../../public/image/folder2.png");
-  background-color: #a4d3ee;
+  background-image: url("../../../public/image/bgmenu.png");
   background-size: cover;
   background-repeat: no-repeat;
   font-size: 24px;
@@ -12,14 +11,14 @@
 }
 h1 {
   font-family: "Cochin";
-  text-align: center;
+  text-align: left;
   font-size: 40px;
   margin-bottom: 5px;
+  padding-left: 40px;
   margin-top: 25px;
   color: mix(rgb(74, 153, 199), #085bc7, 85%);
   text-shadow: 20px white;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.247);
-  border-bottom-width: 2px;
+  border-top: 1px solid rgba(0, 0, 0, 0.247);
 }
 span:hover {
   font-weight: bold;
@@ -38,18 +37,29 @@ span:hover {
   background-color: rgba(129, 129, 129, 0.692);
 }
 .wrapperAdd {
-  margin-top: 40px;
-  margin-left: 18px;
-  height: 60px;
-  width: 280px;
-  justify-content: center;
-
-  border-style: solid;
+  margin-top: 20px;
+  margin-left: 40px;
+  height: 50px;
+  width: 180px;
+  font-family: "cochin";
+  box-shadow: 5px 10px 18px #888888;
+  text-align: center;
+  background-image: url("../../../public/image/plus.png");
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position-x: 7%;
+  background-position-y: 50%;
+  border-bottom-right-radius: 500px;
+  border-top-right-radius: 500px;
+  background-color: white;
   border-width: medium;
-  padding-top: 17px;
-  font-size: 30px;
-  border-radius: 25px;
-}
-.Circuler{
-  
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 40px;
+
+  &:hover {
+    background-color: rgb(255, 243, 225);
+    box-shadow: 5px 10px 18px #e2e0e0;
+    transition: 0.1s;
+  }
 }

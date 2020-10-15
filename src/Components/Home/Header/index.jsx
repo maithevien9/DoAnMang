@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Logo from "../../../public/image/Logo.png";
-
+import a from "../../../public/image/a.jpg";
 import User from "../../../public/image/user2.png";
 import User2 from "../../../public/image/userr.png";
 import Moreimg from "../../../public/image/folder2.png";
@@ -218,6 +218,7 @@ function Header(props) {
   const HandleProfile = () => {
     setModalIsOpen(true);
   };
+  
   function handleTextSearch(e) {
     setValueSearch(e.target.value);
   }
@@ -260,6 +261,11 @@ function Header(props) {
         });
     }
   }
+
+  function handleTextSearch(e) {
+    setValueSearch(e.target.value);
+  }
+
   return (
     <div style={styles.wrapper} class="wrapper">
       <div class="home" style={{ marginLeft: 70 }}>
@@ -296,7 +302,7 @@ function Header(props) {
             anchorE2={anchorE2}
             onClose={handleClose2}
             anchorReference="anchorPosition"
-            anchorPosition={{ top: 100, left: 1500 }}
+            anchorPosition={{ top: 100, left: 2000 }}
             anchorOrigin={{
               horizontal: "right",
             }}
@@ -319,7 +325,7 @@ function Header(props) {
               disabled={props.ValueCheckAdmin}
               onClick={() => HandleDocumentManagement()}
             >
-              Document Managerment
+              Document Management
             </MenuItem>
             <MenuItem
               disabled={props.ValueCheckManager}
@@ -356,26 +362,22 @@ function Header(props) {
             onClose={handleClose}
           >
             <MenuItem
+              style={{ height: 50 }}
               onClick={() => {
                 console.log(props.DataInforUser[0]);
               }}
             >
               <div className="wrapperFormInfor">
-                <p>User Information : </p>
+                <p>User Information: </p>
                 <p>{props.DataInforUser[0].Name}</p>
               </div>
-              {/* <div className="wrapperFormInfor">
-                <p>Address: </p>
-                <p>{props.DataInforUser[0].Address}</p>
-              </div>
-              
-              <div className="wrapperFormInfor">
-                <p>Phone: </p>
-                <p>{props.DataInforUser[0].Phone}</p>
-              </div> */}
             </MenuItem>
-            <MenuItem onClick={HandleProfile}>Update User Information</MenuItem>
-            <MenuItem onClick={handleLogOutHeader}>Logout</MenuItem>
+            <MenuItem onClick={HandleProfile}>
+              <div className="styleMenuItem">Update User Information</div>
+            </MenuItem>
+            <MenuItem onClick={handleLogOutHeader}>
+              <div className="styleMenuItem">Logout</div>
+            </MenuItem>
           </Menu>
         </div>
       </div>
@@ -390,13 +392,12 @@ function Header(props) {
 }
 var styles = {
   wrapper: {
-    height: 100,
+    height: "100%",
     width: "100%",
     display: "flex",
     borderRadius: 10,
     marginBottom: 10,
-
-    backgroundColor: "#a4d3ee",
+    backgroundImage: `url(${a})`,
   },
   imageLogo: {
     height: 70,

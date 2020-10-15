@@ -88,8 +88,8 @@ function Ap(props) {
       {valueLogin ? (
         <Home handleLogOut={handleLogOut} />
       ) : (
-        <Authenication handleLogin={handleLogin} />
-      )}
+          <Authenication handleLogin={handleLogin} />
+        )}
     </div>
   );
 }

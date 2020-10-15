@@ -75,80 +75,51 @@ function SharedDocument(props) {
   };
   var test = [1, 2, 3];
   return (
-    <div className="wrapperForm">
-      <div onClick={HandleClose} className="wrapperClose">
-        Close
+    <div className="wrapperShare">
+      <div className="wrapperHeader">
+        <h2>Share File</h2>
+        <button onClick={() => HandleClose()}></button>
       </div>
-      <div className="wrapperMain" style={{ marginBottom: 20, marginTop: 10 }}>
-        Share Folder
-      </div>
-      <div style={styles.wrapper} class="wrapperMain">
-        <input
-          className="formText"
-          type="text"
-          name="name"
-          onChange={handleTextPassWord}
-          value={UserName}
-        />
-        <div className="wrapperMain2" onClick={() => handleCheck()}>
-          <div className="wrapperBtn"> Search User</div>
+      <div className="wrapperMain">
+        <div className="wrapperSearchUser" >
+          <input
+            className="formText"
+            type="text"
+            name="name"
+            onChange={handleTextPassWord}
+            value={UserName}
+          />
+          <button className="btnSS" onClick={() => handleCheck()}> Search User</button>
+          <button className="btnSS" onClick={() => handleShare()}> Share</button>
         </div>
-        <div
-          className="wrapperMain2"
-          onClick={() => handleShare()}
-          style={{ marginRight: 20 }}
-        >
-          <div className="wrapperBtn"> Share</div>
-        </div>
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div className="wrapperUserInfor">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              paddingLeft: 20,
-              paddingRight: 20,
-            }}
-          >
-            <p>ID</p>
-            <p>Name</p>
-            <p>Room</p>
-            <p></p>
+        <div className="wrapperBody" style={{ display: "inline-block" }}>
+          <div className="wrapperUserInfor">
+            <div className="wrapperTop">
+              <p>ID</p>
+              <p>Name</p>
+              <p>Room</p>
+              <p></p>
+            </div>
+            {props.DataUserSearch.map((e) => (
+              <div className="wrapperShow" key={e.ID}>
+                <div className="wrapperid"><p>{e.ID}</p> </div>
+                <div className="wrappername"><p>{e.Name}</p> </div>
+                <div className="wrapperidroom"><p>{e.IDRoom}</p> </div>
+                <button onClick={() => handleClickAdd(e.ID)}>Add</button>
+              </div>
+            ))}
           </div>
-          {props.DataUserSearch.map((e) => (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                paddingLeft: 20,
-                paddingRight: 20,
-              }}
-              key={e.ID}
-            >
-              <p>{e.ID}</p>
-              <p>{e.Name}</p>
-              <p>{e.IDRoom}</p>
-              <p onClick={() => handleClickAdd(e.ID)}>Add</p>
-            </div>
-          ))}
-        </div>
-        <div className="wrapperUserInfor2">
-          {props.DataUserSearchPush.map((e) => (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                paddingLeft: 20,
-                paddingRight: 20,
-              }}
-              key={e}
-            >
-              <p>ID: {e}</p>
-
-              <p onClick={() => HandleDeleteData(e)}>Delete</p>
-            </div>
-          ))}
+          <div className="wrapperUserInfor2">
+            {props.DataUserSearchPush.map((e) => (
+              <div
+                className="wrapperShow2"
+                key={e}
+              >
+                <p>ID: {e}</p>
+                <button onClick={() => HandleDeleteData(e)}>Delete</button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

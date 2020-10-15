@@ -47,9 +47,10 @@ function Home(props) {
         <Document />
       </div>
       <Modal isOpen={modalIsOpen}>
+
         <ProviderManager HandleProvideClose={HandleProvideClose} />
       </Modal>
-      <Modal isOpen={modalIsOpen2}>
+      <Modal isOpen={modalIsOpen2} className="Modal" >
         <Register HandleProvideClose2={HandleProvideClose2} />
       </Modal>
     </div>

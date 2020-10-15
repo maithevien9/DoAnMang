@@ -56,30 +56,30 @@ function CheckPassWork(props) {
       });
   };
   return (
-    <div className="wrapperForm">
-      <div onClick={HandleClose} className="wrapperClose">
-        Close
-      </div>
-      <div className="wrapperMain" style={{ marginBottom: 20, marginTop: 50 }}>
-        Check PassWord
+    <div className="wrapperCheckPass">
+      <div className="wrapperHeader">
+        <button onClick={() => HandleClose()}></button>
       </div>
       <div className="wrapperMain">
-        <input
-          className="formText"
-          type="text"
-          name="name"
-          onChange={handleTextPassWord}
-          value={passwordFolder}
-        />
+        <div><label>Check Password:</label></div>
+        <div>
+          <input
+            className="formText"
+            type="text"
+            name="name"
+            onChange={handleTextPassWord}
+            value={passwordFolder}
+          />
+        </div>
       </div>
       <div
-        className="wrapperMain2"
-        style={{ marginTop: 80 }}
+        className="btnSubmit"
+        style={{ marginLeft: "70%" }}
         onClick={handleCheck}
       >
-        <div className="wrapperBtn"> Submit</div>
+        Submit
       </div>
-    </div>
+    </div >
   );
 }
 

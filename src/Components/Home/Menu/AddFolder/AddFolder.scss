@@ -1,75 +1,81 @@
-.wrapperForm {
-    height: 100%;
-    width: 100%;
-    background-color: beige;
-}
-.wrapperClose {
-    padding-left: 90%;
-}
-.wrapperMain {
-    justify-content: center;
+.wrapperAddFolder {
+    background-color: white;
+    overflow-y: hidden;
     display: flex;
-}
-.wrapperMainAdd {
-    justify-content: center;
-   
-}
 
-.formTextInput {
-    margin-left: 15px;
-    height: 30px;
-    width: 400px;
-    border-radius: 15px;
-}
-.wrapperMain2 {
-    justify-content: center;
-    display: flex;
-}
-.wrapperBtn {
-    height: 50px;
-    width: 250px;
-    border: 2px solid black;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-}
-.WrapperOneForm{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.WrapperDivName{
-    height: 30px;
-    width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.WrapperCheck{
-    width: 50px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.WrapperFormWrapperCheck{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.WrapperOneFormSubmit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-}
-.wrapperBtn{
-    height: 50px;
-    width: 150px;
-    border: 2px solid black;
-}
-.wrapperCheck{
-    height: 30px;
-    width: 30px;
+    .wrapperLeft {
+        height: 100%;
+        width: 50%;
+        background-image: url("../../../../public/image/bgadd.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: 50%;
+    }
+    .wrapperRight {
+        height: 100%;
+        width: 50%;
+
+        .wrapperHeader {
+            height: 12%;
+            display: flex;
+            justify-content: space-between;
+            h2 {
+                font-family: "cochin";
+                font-size: 45px;
+                color: gray;
+                border: none;
+                margin: 0;
+                margin-left: 25%;
+            }
+            button {
+                background-color: #dbdada;
+                border: none;
+                cursor: pointer;
+                width: 6%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position-y: center;
+                background-image: url("../../../../public/image/close.png");
+                &:hover {
+                    background-color: rgb(255, 38, 38);
+                    transition: 0.3s;
+                }
+            }
+        }
+        .wrapperMain {
+            .WrapperOneForm {
+                display: block;
+                height: 100%;
+                width: 100%;
+                background-color: white;
+                .WrapperDivName {
+                    padding-top: 5%;
+
+                    label {
+                        margin: 7px;
+                        font-size: 30px;
+                        font-family: "cochin";
+                        padding-bottom: 5px;
+                        color: rgb(59, 59, 59);
+                        margin-left: 10%;
+                    }
+                }
+                .WrapperFormWrapperCheck {
+                    display: flex;
+                    padding-left: 10%;
+                    .formTextInput {
+                        font-size: 30px;
+                        height: 50px;
+                        width: 70%;
+                        border-radius: 5px;
+                    }
+                    .wrapperCheck {
+                        height: 50px;
+                        width: 50px;
+                    }
+                }
+            }
+        }
+    }
 }

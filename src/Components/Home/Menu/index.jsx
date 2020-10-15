@@ -15,6 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Popover from "@material-ui/core/Popover";
 const StyledTree = styled.div`
   line-height: 1.5;
 `;
@@ -180,48 +181,7 @@ function TreeView(props) {
             alert("THANH_CONG");
             console.log(fileUp.name);
             console.log(props.DataUser.data[0].ID);
-            // let ts = Date.now();
 
-            // let date_ob = new Date(ts);
-            // let date = date_ob.getDate();
-            // let month = date_ob.getMonth() + 1;
-            // let year = date_ob.getFullYear();
-
-            // var hour = date_ob.getHours();
-            // var min = date_ob.getMinutes();
-            // var sec = date_ob.getSeconds();
-
-            // console.log(
-            //   year +
-            //     "-" +
-            //     month +
-            //     "-" +
-            //     date +
-            //     " " +
-            //     hour +
-            //     ":" +
-            //     min +
-            //     ":" +
-            //     sec
-            // );
-            // var time =
-            //   year +
-            //   "-" +
-            //   month +
-            //   "-" +
-            //   date +
-            //   " " +
-            //   hour +
-            //   ":" +
-            //   min +
-            //   ":" +
-            //   sec;
-            // props.dispatch({
-            //   type: "AddFile",
-            //   Name: fileUp.name,
-            //   ID: props.DataUser.data[0].ID,
-            //   SendTime: time,
-            // });
             GetFolderAndFileFromFolder(props.IDFolder)
               .then((json) => {
                 var DataFileFolder = json;
@@ -265,27 +225,36 @@ function TreeView(props) {
       <div className="wrapperAdd" onClick={() => HandleAdd()}>
         ADD
       </div>
-      <Menu
+      <Popover
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 220, left: 60 }}
+        anchorOrigin={{
+          horizontal: "right",
+        }}
       >
-        <MenuItem onClick={() => HandleADDFolder()}>Add Folder</MenuItem>
-        <MenuItem onClick={() => HandleAdd2()}>File Upload File</MenuItem>
-        {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
-      </Menu>
-      <Menu
+        <MenuItem style={{ height: 50, fontSize: 26 }} onClick={() => HandleADDFolder()}>Add Folder</MenuItem>
+        <MenuItem style={{ height: 50, fontSize: 26 }} onClick={() => HandleAdd2()}>File Upload File</MenuItem>
+      </Popover>
+      <Popover
         id="simple-menu"
         anchorEl={anchorEl2}
         keepMounted
         open={Boolean(anchorEl2)}
         onClose={handleClose2}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 220, left: 60 }}
+        anchorOrigin={{
+          horizontal: "right",
+        }}
       >
-        <MenuItem>
+        <MenuItem style={{ height: 70, width: 330 }}>
           <input
-            style={{ marginRight: 10 }}
+            style={{ fontSize: 22 }}
             type="file"
             onChange={(e) => {
               HandleUpload(e);
@@ -293,7 +262,7 @@ function TreeView(props) {
           />
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem style={{ height: 50, width: 330 }}>
           <Fade
             in={loading}
             style={{
@@ -303,13 +272,13 @@ function TreeView(props) {
           >
             <CircularProgress />
           </Fade>
-          <Button onClick={HandleAddFile} className={classes.button}>
+          <Button onClick={HandleAddFile} style={{ right: 0, fontSize: 35, width: "100%", fontFamily: "cochin" }}>
             {loading ? "Is Sending" : "Send"}
           </Button>
         </MenuItem>
         {/* <MenuItem onClick={() => HandleAddFile()}>Add File</MenuItem> */}
-      </Menu>
-      <h1>ROOMS</h1>
+      </Popover>
+      <h1></h1>
       <Tree>
         <Tree.Folder name="Floor 1">
           <div
@@ -344,40 +313,196 @@ function TreeView(props) {
           </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 2">
-          <Tree.File name="Room201" onClick={() => {}} />
-          <Tree.File name="Room202" onClick={() => {}} />
-          <Tree.File name="Room203" onClick={() => {}} />
-          <Tree.File name="Room204" onClick={() => {}} />
+          <div
+            onClick={() => {
+              HandleClickRoom(201);
+            }}
+          >
+            <Tree.File name="Room 201" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(202);
+            }}
+          >
+            <Tree.File name="Room 202" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(203);
+            }}
+          >
+            <Tree.File name="Room 203" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(204);
+            }}
+          >
+            <Tree.File name="Room 204" />
+          </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 3">
-          <Tree.File name="Room301" />
-          <Tree.File name="Room302" />
-          <Tree.File name="Room303" />
-          <Tree.File name="Room304" />
+          <div
+            onClick={() => {
+              HandleClickRoom(301);
+            }}
+          >
+            <Tree.File name="Room 301" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(302);
+            }}
+          >
+            <Tree.File name="Room 302" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(303);
+            }}
+          >
+            <Tree.File name="Room 303" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(304);
+            }}
+          >
+            <Tree.File name="Room 304" />
+          </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 4">
-          <Tree.File name="Room401" />
-          <Tree.File name="Room402" />
-          <Tree.File name="Room403" />
-          <Tree.File name="Room404" />
+          <div
+            onClick={() => {
+              HandleClickRoom(401);
+            }}
+          >
+            <Tree.File name="Room 401" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(402);
+            }}
+          >
+            <Tree.File name="Room 402" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(403);
+            }}
+          >
+            <Tree.File name="Room 403" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(404);
+            }}
+          >
+            <Tree.File name="Room 404" />
+          </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 5">
-          <Tree.File name="Room501" />
-          <Tree.File name="Room502" />
-          <Tree.File name="Room503" />
-          <Tree.File name="Room504" />
+          <div
+            onClick={() => {
+              HandleClickRoom(501);
+            }}
+          >
+            <Tree.File name="Room 501" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(502);
+            }}
+          >
+            <Tree.File name="Room 502" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(503);
+            }}
+          >
+            <Tree.File name="Room 503" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(504);
+            }}
+          >
+            <Tree.File name="Room 504" />
+          </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 6">
-          <Tree.File name="Room601" />
-          <Tree.File name="Room602" />
-          <Tree.File name="Room603" />
-          <Tree.File name="Room604" />
+          <div
+            onClick={() => {
+              HandleClickRoom(601);
+            }}
+          >
+            <Tree.File name="Room 601" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(602);
+            }}
+          >
+            <Tree.File name="Room 602" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(603);
+            }}
+          >
+            <Tree.File name="Room 603" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(604);
+            }}
+          >
+            <Tree.File name="Room 604" />
+          </div>
         </Tree.Folder>
         <Tree.Folder name="Floor 7">
-          <Tree.File name="Room701" />
-          <Tree.File name="Room702" />
-          <Tree.File name="Room703" />
-          <Tree.File name="Room704" />
+          <div
+            onClick={() => {
+              HandleClickRoom(701);
+            }}
+          >
+            <Tree.File name="Room 701" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(702);
+            }}
+          >
+            <Tree.File name="Room 702" />
+          </div>
+
+          <div
+            onClick={() => {
+              HandleClickRoom(703);
+            }}
+          >
+            <Tree.File name="Room 703" />
+          </div>
+          <div
+            onClick={() => {
+              HandleClickRoom(704);
+            }}
+          >
+            <Tree.File name="Room 704" />
+          </div>
         </Tree.Folder>
       </Tree>
       {/* <CircularProgress className="Circuler" state={state} /> */}
@@ -385,7 +510,7 @@ function TreeView(props) {
       <Modal isOpen={modalIsOpen} className="Modal">
         <AddFolder
           handleCloseAddFolder={handleCloseAddFolder}
-          // IDDocValue={IDDocValue}
+        // IDDocValue={IDDocValue}
         />
       </Modal>
     </div>
