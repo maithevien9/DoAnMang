@@ -71,16 +71,30 @@ function Ap(props) {
   }, []);
   function handleLogin() {
     setValueLogin(true);
+    // GetInforUser(props.DataUser.token)
+    //   .then((json) => {
+    //     var DataInfor = JSON.parse(JSON.stringify(json));
+    //     console.log("Dataaaa" + DataInfor.data[0]);
+    //     if (DataInfor.dataString === "THANH_CONG") {
+    //       props.dispatch({
+    //         type: "setDataInfor",
+    //         data: DataInfor.data,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error + "fail");
+    //   });
   }
   function handleLogOut() {
-    // props.dispatch({
-    //   type: "setDataCheckAdmin",
-    //   data: true,
-    // });
-    // props.dispatch({
-    //   type: "setDataCheckManager",
-    //   data: true,
-    // });
+    props.dispatch({
+      type: "setDataCheckAdmin",
+      data: true,
+    });
+    props.dispatch({
+      type: "setDataCheckManager",
+      data: true,
+    });
     setValueLogin(false);
   }
   return (
@@ -88,8 +102,8 @@ function Ap(props) {
       {valueLogin ? (
         <Home handleLogOut={handleLogOut} />
       ) : (
-          <Authenication handleLogin={handleLogin} />
-        )}
+        <Authenication handleLogin={handleLogin} />
+      )}
     </div>
   );
 }

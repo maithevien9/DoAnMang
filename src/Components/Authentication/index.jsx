@@ -35,10 +35,11 @@ function Authenication(props) {
             });
             handleLogin();
             SaveDataLogin(DataLoginUser);
-            GetInforUser(props.DataUser.token)
+            // console.log("Token Nha " + DataLoginUser.token);
+            GetInforUser(DataLoginUser.token)
               .then((json) => {
                 var DataInfor = JSON.parse(JSON.stringify(json));
-                console.log(DataInfor);
+                console.log("Dataaaa" + DataInfor.data[0]);
                 if (DataInfor.dataString === "THANH_CONG") {
                   props.dispatch({
                     type: "setDataInfor",

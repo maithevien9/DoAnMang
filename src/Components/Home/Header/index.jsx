@@ -84,6 +84,8 @@ function Header(props) {
       handleLogOut2();
       SaveDataLogin({
         dataString: "KHONG_THANH_CONG",
+        data: [],
+        token: "",
       });
     }
   };
@@ -342,7 +344,7 @@ function Header(props) {
               Document Management
             </MenuItem>
             <MenuItem
-              disabled={props.ValueCheckManager}
+              disabled={props.ValueCheckAdmin}
               onClick={() => HandleRegister()}
             >
               Register
