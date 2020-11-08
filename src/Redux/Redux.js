@@ -109,6 +109,16 @@ const ValueCheckManagerReducer = (state = ValueCheckManage, action) => {
 };
 const arrUserReducer = (state = arrUser, action) => {
   if (action.type === "SetData") return action.data;
+
+  if (action.type === "ChangUser") {
+    // alert(action.decentralization + "/" + action.IDUser);
+    return state.map((e) => {
+      if (e.ID !== action.IDUser) return e;
+      else {
+        return { ...e, decentralization: action.decentralization };
+      }
+    });
+  }
   return state;
 };
 const dataUserReducer = (state = dataUser, action) => {

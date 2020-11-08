@@ -25,6 +25,7 @@ function ProvideManage(props) {
     }
   };
   const HandleSubmit = (ID) => {
+    // alert(ID + "/" + value);
     provideManager(ID, value)
       .then((json) => {
         var dataCheck = JSON.parse(JSON.stringify(json));
@@ -32,18 +33,29 @@ function ProvideManage(props) {
         console.log(dataCheck.dataString);
         if (dataCheck.dataString === "THANH_CONG") {
           alert("Success");
-          GetUser()
-            .then((json) => {
-              var DataUser = JSON.parse(JSON.stringify(json));
-              console.log(DataUser);
-              props.dispatch({
-                type: "SetData",
-                data: DataUser.data,
-              });
-            })
-            .catch((error) => {
-              console.error(error + "fail");
-            });
+          var data = "";
+          if (value === 2) {
+            data = "Admin";
+          } else {
+            data = "Student";
+          }
+          props.dispatch({
+            type: "ChangUser",
+            IDUser: ID,
+            decentralization: data,
+          });
+          // GetUser()
+          //   .then((json) => {
+          //     var DataUser = JSON.parse(JSON.stringify(json));
+          //     console.log(DataUser);
+          //     props.dispatch({
+          //       type: "SetData",
+          //       data: DataUser.data,
+          //     });
+          //   })
+          //   .catch((error) => {
+          //     console.error(error + "fail");
+          //   });
         }
       })
       .catch((error) => {
@@ -52,7 +64,10 @@ function ProvideManage(props) {
   };
 
   return (
-    <div className="wrapperFull" style={{ display: "block", height: "100%", width: "100%" }}>
+    <div
+      className="wrapperFull"
+      style={{ display: "block", height: "100%", width: "100%" }}
+    >
       <div className="wrapperHeader">
         <h2>Provide Manager Rights</h2>
         <button onClick={() => HandleClose()}></button>
@@ -103,7 +118,7 @@ function ProvideManage(props) {
                   }}
                 >
                   Submit
-                  </button>
+                </button>
               </div>
             </div>
           </div>
