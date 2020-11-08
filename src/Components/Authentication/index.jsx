@@ -118,7 +118,7 @@ function Authenication(props) {
           <p style={styles.textLogin}>Password:</p>
           <input
             className="formInput"
-            type="text"
+            type="password"
             value={password}
             onChange={handleTextPass}
           />

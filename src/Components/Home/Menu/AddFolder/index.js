@@ -59,7 +59,7 @@ function AddFolder(props) {
             GetFolderFromRoom(props.IDRoom)
               .then((json) => {
                 var DataFolderRoom = JSON.parse(JSON.stringify(json));
-
+                console.log(DataFolderRoom);
                 props.dispatch({
                   type: "SetDataFolder",
                   data: DataFolderRoom.data,
@@ -83,7 +83,7 @@ function AddFolder(props) {
                 });
                 props.dispatch({
                   type: "SetDataFile",
-                  dataFile: [],
+                  dataFile: DataFolderRoom.file,
                 });
               })
               .catch((error) => {
