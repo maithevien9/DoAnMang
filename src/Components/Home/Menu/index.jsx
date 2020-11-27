@@ -436,7 +436,7 @@ function TreeView(props) {
             <Tree.File name="Room 404" />
           </div>
         </Tree.Folder>
-        <Tree.Folder name="Floor 5">
+        {/* <Tree.Folder name="Floor 5">
           <div
             onClick={() => {
               HandleClickRoom(501);
@@ -531,7 +531,7 @@ function TreeView(props) {
           >
             <Tree.File name="Room 704" />
           </div>
-        </Tree.Folder>
+        </Tree.Folder> */}
       </Tree>
       {/* <CircularProgress className="Circuler" state={state} /> */}
 
