@@ -359,6 +359,14 @@ function Document(props) {
     });
   };
   //
+  const convertDate = (date) => {
+    var ts = new Date(date);
+    return ts.toLocaleDateString();
+  };
+  const convertDate2 = (date) => {
+    var ts = new Date(date);
+    return ts.toLocaleTimeString();
+  };
   return (
     <div className="wrp" style={styles.wrapperDocument}>
       <button onClick={() => HandleBack(props.DataBack)}></button>
@@ -372,7 +380,7 @@ function Document(props) {
             <p>By ID</p>
           </div>
           <div className="wrapperTime">
-            <p> Last Modified</p>
+            <p> Create At Time </p>
           </div>
         </div>
 
@@ -454,7 +462,7 @@ function Document(props) {
                 <MenuItem style={{ height: 50, width: 350 }}>
                   <input
                     style={{ fontSize: 26, marginRight: 10 }}
-                    type="text"
+                    type="password"
                     onChange={handleTextPassWord}
                     value={valuePassWord}
                   />
@@ -472,7 +480,9 @@ function Document(props) {
               <p>{e.IDuser}</p>
             </div>
             <div className="wrapperTime">
-              <p>{e.SendTime}</p>
+              <p>
+                {convertDate(e.SendTime)} {convertDate2(e.SendTime)}
+              </p>
             </div>
           </div>
         ))}
@@ -521,7 +531,9 @@ function Document(props) {
               <p>{e.IDuser}</p>
             </div>
             <div className="wrapperTime">
-              <p>{e.SendTime}</p>
+              <p>
+                {convertDate(e.SendTime)} {convertDate2(e.SendTime)}
+              </p>
             </div>
           </div>
         ))}

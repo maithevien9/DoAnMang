@@ -66,7 +66,7 @@ function CheckPassWork(props) {
         <div>
           <input
             className="formText"
-            type="text"
+            type="password"
             name="name"
             onChange={handleTextPassWord}
             value={passwordFolder}

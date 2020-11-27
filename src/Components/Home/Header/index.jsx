@@ -289,7 +289,7 @@ function Header(props) {
       </div>
 
       <div class="search" style={styles.wrapperInput}>
-        <input
+        {/* <input
           style={styles.textInput}
           class="textInput"
           type="text"
@@ -297,7 +297,7 @@ function Header(props) {
           onChange={handleTextSearch}
           value={valueSearch}
           onKeyPress={keyPressed}
-        ></input>
+        ></input> */}
       </div>
 
       <div class="btn">

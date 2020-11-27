@@ -132,7 +132,7 @@ function AddFolder(props) {
             <div className="WrapperFormWrapperCheck">
               <input
                 className="formTextInput"
-                type="text"
+                type="password"
                 name="name"
                 disabled={!checked}
                 onChange={handleTextPassWordFolder}
