@@ -133,7 +133,7 @@ function AddFolder(props) {
               <input
                 className="formTextInput"
                 type="password"
-                name="name"
+                  name="name"
                 disabled={!checked}
                 onChange={handleTextPassWordFolder}
                 value={PasswordFolder}
