@@ -288,18 +288,13 @@ function Header(props) {
         <img style={styles.imageLogo} src={Logo} alt="Logo" class="image" />
       </div>
 
-      <div class="search" style={styles.wrapperInput}>
-        {/* <input
-          style={styles.textInput}
-          class="textInput"
-          type="text"
-          placeholder="Search..."
-          onChange={handleTextSearch}
-          value={valueSearch}
-          onKeyPress={keyPressed}
-        ></input> */}
+      <div class="search" style={styles.wrapperInput}></div>
+      <div>
+        <p class="wrapperFormInfor">
+          Xin Chào: {props.DataInforUser[0].Name} - ID:
+          {props.DataInforUser[0].ID}
+        </p>
       </div>
-
       <div class="btn">
         <div class="btnMore">
           <IconButton
